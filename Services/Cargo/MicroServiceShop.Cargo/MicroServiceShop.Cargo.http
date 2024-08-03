@@ -1,0 +1,6 @@
+@MicroServiceShop.Cargo_HostAddress = http://localhost:5017
+
+GET {{MicroServiceShop.Cargo_HostAddress}}/api/Cargo
+Accept: application/json
+
+###

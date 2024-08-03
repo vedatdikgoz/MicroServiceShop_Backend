@@ -1,0 +1,6 @@
+@MicroServiceShop.Discount_HostAddress = http://localhost:5014
+
+GET {{MicroServiceShop.Discount_HostAddress}}/api/Discounts
+Accept: application/json
+
+###
