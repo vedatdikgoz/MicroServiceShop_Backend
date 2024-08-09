@@ -11,5 +11,6 @@ namespace MicroServiceShop.Catalog.Services.Interfaces
         Task<Response<ProductDto>> CreateAsync(CreateProductDto createProductDto);
         Task<Response<NoContent>> UpdateAsync(UpdateProductDto updateProductDto);
         Task<Response<NoContent>> DeleteAsync(string id);
+        Task<Response<List<ProductDto>>> GetProductsByCategory(string categoryId);
     }
 }

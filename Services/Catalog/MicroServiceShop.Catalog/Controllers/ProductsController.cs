@@ -58,5 +58,13 @@ namespace MicroServiceShop.Catalog.Controllers
 
             return CreateActionResultInstance(response);
         }
+
+
+        [HttpGet("productwithcategory")]
+        public async Task<IActionResult> ProductWithCategory(string categoryId)
+        {
+            var response = await _productService.GetProductsByCategory(categoryId);
+            return CreateActionResultInstance(response);
+        }
     }
 }
