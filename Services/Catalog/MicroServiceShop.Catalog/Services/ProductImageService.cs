@@ -48,6 +48,12 @@ namespace MicroServiceShop.Catalog.Services
             return Response<List<ProductImageDto>>.Success(_mapper.Map<List<ProductImageDto>>(productImages), 200);
         }
 
+        public async Task<Response<List<ProductImageDto>>> GetAllByProductIdAsync(string productId)
+        {
+            var productImages = await _productImageCollection.Find(x => x.ProductId == productId).ToListAsync();
+            return Response<List<ProductImageDto>>.Success(_mapper.Map<List<ProductImageDto>>(productImages), 200);
+        }
+
         public async Task<Response<ProductImageDto>> GetByIdAsync(string id)
         {
             var productImage = await _productImageCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

@@ -23,6 +23,12 @@ namespace MicroServiceShop.Catalog.Controllers
             return CreateActionResultInstance(productImages);
         }
 
+        [HttpGet("getall/{productId}")]
+        public async Task<IActionResult> GetAllByProductId(string productId)
+        {
+            var productImages = await _productImageService.GetAllByProductIdAsync(productId);
+            return CreateActionResultInstance(productImages);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)

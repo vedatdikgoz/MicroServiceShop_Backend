@@ -7,6 +7,7 @@ namespace MicroServiceShop.Catalog.Services.Interfaces
     public interface IProductImageService
     {
         Task<Response<List<ProductImageDto>>> GetAllAsync();
+        Task<Response<List<ProductImageDto>>> GetAllByProductIdAsync(string productId);
         Task<Response<ProductImageDto>> GetByIdAsync(string id);
         Task<Response<ProductImageDto>> CreateAsync(CreateProductImageDto createProductImageDto);
         Task<Response<NoContent>> UpdateAsync(UpdateProductImageDto updateProductImageDto);
