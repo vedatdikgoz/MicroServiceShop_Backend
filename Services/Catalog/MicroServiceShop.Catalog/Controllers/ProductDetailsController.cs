@@ -31,6 +31,12 @@ namespace MicroServiceShop.Catalog.Controllers
             return CreateActionResultInstance(productDetail);
         }
 
+        [HttpGet("product/{productId}")]
+        public async Task<IActionResult> GetByProductId(string productId)
+        {
+            var productDetail = await _productDetailService.GetByProductIdAsync(productId);
+            return CreateActionResultInstance(productDetail);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDetailDto createProductDetailDto)
