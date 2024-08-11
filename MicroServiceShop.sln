@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{60
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{E3766468-E9C4-475D-95F9-4D99AA4301E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Catalog", "Services\Catalog\MicroServiceShop.Catalog\MicroServiceShop.Catalog.csproj", "{19E99C08-B09D-4E25-B04B-2552906CB4DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Catalog.WebAPI", "Services\Catalog\MicroServiceShop.Catalog\MicroServiceShop.Catalog.WebAPI.csproj", "{19E99C08-B09D-4E25-B04B-2552906CB4DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D1271DFB-9215-4961-B6F4-A492CC13FD4E}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Core", "Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{2FAC2D9A-D675-4B5D-A266-94BD235745F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Discount", "Services\Discount\MicroServiceShop.Discount\MicroServiceShop.Discount.csproj", "{8A6625AE-1A5C-4525-AC22-5FFFAAA93F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Discount.WebAPI", "Services\Discount\MicroServiceShop.Discount\MicroServiceShop.Discount.WebAPI.csproj", "{8A6625AE-1A5C-4525-AC22-5FFFAAA93F36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{8298171A-598C-4314-9841-8E7BF341A34F}"
 EndProject
@@ -38,6 +38,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{0C7D262D-A531-4684-B6AD-9593A66D2856}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Basket.WebAPI", "Services\Basket\MicroServiceShop.Basket.WebAPI\MicroServiceShop.Basket.WebAPI.csproj", "{F99EE1C8-14A3-4DFF-B027-8BF8EFB69E00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comment", "Comment", "{6A12F330-D52E-415B-8A2A-D9C26D0103CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceShop.Comment.WebAPI", "Services\Comment\MicroServiceShop.Comment.WebAPI\MicroServiceShop.Comment.WebAPI.csproj", "{D9F27440-42D1-4076-A3C9-1D1A1F271095}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +89,10 @@ Global
 		{F99EE1C8-14A3-4DFF-B027-8BF8EFB69E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F99EE1C8-14A3-4DFF-B027-8BF8EFB69E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F99EE1C8-14A3-4DFF-B027-8BF8EFB69E00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F27440-42D1-4076-A3C9-1D1A1F271095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F27440-42D1-4076-A3C9-1D1A1F271095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F27440-42D1-4076-A3C9-1D1A1F271095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F27440-42D1-4076-A3C9-1D1A1F271095}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +113,8 @@ Global
 		{C15C3BA6-6B56-4CE0-8E06-BC2F57BCBED7} = {C95E531F-886E-45E9-A47F-3F6116FC80F6}
 		{0C7D262D-A531-4684-B6AD-9593A66D2856} = {6067340F-1398-48C6-9DAA-73FDC7A078BA}
 		{F99EE1C8-14A3-4DFF-B027-8BF8EFB69E00} = {0C7D262D-A531-4684-B6AD-9593A66D2856}
+		{6A12F330-D52E-415B-8A2A-D9C26D0103CB} = {6067340F-1398-48C6-9DAA-73FDC7A078BA}
+		{D9F27440-42D1-4076-A3C9-1D1A1F271095} = {6A12F330-D52E-415B-8A2A-D9C26D0103CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {796A04CE-2372-4345-BBCA-067BD1157309}

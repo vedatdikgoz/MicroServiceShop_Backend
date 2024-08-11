@@ -8,6 +8,7 @@ namespace MicroServiceShop.Catalog.Services.Interfaces
     {
         Task<Response<List<ProductDetailDto>>> GetAllAsync();
         Task<Response<ProductDetailDto>> GetByIdAsync(string id);
+        Task<Response<ProductDetailDto>> GetByProductIdAsync(string productId);
         Task<Response<ProductDetailDto>> CreateAsync(CreateProductDetailDto createProductDetailDto);
         Task<Response<NoContent>> UpdateAsync(UpdateProductDetailDto updateProductDetailDto);
         Task<Response<NoContent>> DeleteAsync(string id);

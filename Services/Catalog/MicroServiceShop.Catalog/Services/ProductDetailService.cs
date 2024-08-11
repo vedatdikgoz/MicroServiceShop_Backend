@@ -60,6 +60,16 @@ namespace MicroServiceShop.Catalog.Services
             return Response<ProductDetailDto>.Success(_mapper.Map<ProductDetailDto>(productDetail), 200);
         }
 
+        public async Task<Response<ProductDetailDto>> GetByProductIdAsync(string productId)
+        {
+            var productDetail = await _productDetailCollection.Find(x => x.ProductId == productId).FirstOrDefaultAsync();
+            if (productDetail == null)
+            {
+                return Response<ProductDetailDto>.Fail("ProductDetail not found", 404);
+            }
+            return Response<ProductDetailDto>.Success(_mapper.Map<ProductDetailDto>(productDetail), 200);
+        }
+
         public async Task<Response<NoContent>> UpdateAsync(UpdateProductDetailDto updateProductDetailDto)
         {
             var updateProductDetail = _mapper.Map<ProductDetail>(updateProductDetailDto);
