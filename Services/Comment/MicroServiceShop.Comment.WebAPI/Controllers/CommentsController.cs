@@ -1,6 +1,5 @@
 ﻿using MicroServiceShop.Comment.WebAPI.Dtos;
 using MicroServiceShop.Comment.WebAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroServiceShop.Comment.WebAPI.Controllers
@@ -25,6 +24,13 @@ namespace MicroServiceShop.Comment.WebAPI.Controllers
         public async Task<IActionResult> GetById(string id)
         {
             var product = await _commentService.GetByIdAsync(id);
+            return CreateActionResultInstance(product);
+        }
+
+        [HttpGet("getallbyproductid/{productId}")]
+        public async Task<IActionResult> GetAllByProductId(string productId)
+        {
+            var product = await _commentService.GetAllByProductIdAsync(productId);
             return CreateActionResultInstance(product);
         }
 

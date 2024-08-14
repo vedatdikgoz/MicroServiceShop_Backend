@@ -7,6 +7,7 @@ namespace MicroServiceShop.Comment.WebAPI.Services.Interfaces
     public interface ICommentService
     {
         Task<Response<List<UserCommentDto>>> GetAllAsync();
+        Task<Response<List<UserCommentDto>>> GetAllByProductIdAsync(string productId);
         Task<Response<UserCommentDto>> GetByIdAsync(string id);
         Task<Response<UserCommentDto>> CreateAsync(CreateUserCommentDto createCommentDto);
         Task<Response<NoContent>> UpdateAsync(UpdateUserCommentDto updateCommentDto);

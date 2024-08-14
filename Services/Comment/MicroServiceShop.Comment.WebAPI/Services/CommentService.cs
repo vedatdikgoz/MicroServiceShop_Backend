@@ -53,6 +53,18 @@ namespace MicroServiceShop.Comment.WebAPI.Services
             return Response<List<UserCommentDto>>.Fail("Comment not found", 404);
         }
 
+        public async Task<Response<List<UserCommentDto>>> GetAllByProductIdAsync(string productId)
+        {
+            var comments = await _userCommentCollection.Find(x => x.ProductId == productId).ToListAsync();
+
+            if (comments.Count != 0)
+            {
+                return Response<List<UserCommentDto>>.Success(_mapper.Map<List<UserCommentDto>>(comments), 200);
+            }
+
+            return Response<List<UserCommentDto>>.Fail("Comment not found", 404);
+        }
+
         public async Task<Response<UserCommentDto>> GetByIdAsync(string id)
         {
             var comment = await _userCommentCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

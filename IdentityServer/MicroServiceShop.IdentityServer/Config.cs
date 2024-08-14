@@ -16,6 +16,7 @@ namespace MicroServiceShop.IdentityServer
             new ApiResource("resource_order") {Scopes = {"order_fullpermission"}},
             new ApiResource("resource_payment") {Scopes = {"payment_fullpermission"}},
             new ApiResource("resource_gateway") {Scopes = {"gateway_fullpermission"}},
+            new ApiResource("resource_comment") {Scopes = {"comment_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
          };
 
@@ -44,6 +45,7 @@ namespace MicroServiceShop.IdentityServer
                 new ApiScope("order_fullpermission","Order API için tam erişim"),
                 new ApiScope("payment_fullpermission","Payment API için tam erişim"),
                 new ApiScope("gateway_fullpermission","Gateway API için tam erişim"),
+                new ApiScope("comment_fullpermission","Comment API için tam erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -60,6 +62,7 @@ namespace MicroServiceShop.IdentityServer
                     {
                         "catalog_fullpermission",
                         "photo_stock_fullpermission",
+                        "comment_fullpermission",
                         "gateway_fullpermission",
                         IdentityServerConstants.LocalApi.ScopeName
                     }
@@ -74,6 +77,8 @@ namespace MicroServiceShop.IdentityServer
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedScopes =
                     {
+                        "catalog_fullpermission",
+                        "comment_fullpermission",
                         "basket_fullpermission",
                         "order_fullpermission",
                         "gateway_fullpermission",
@@ -84,9 +89,9 @@ namespace MicroServiceShop.IdentityServer
                         IdentityServerConstants.LocalApi.ScopeName,
                         "roles"
                     },
-                    AccessTokenLifetime = 1*60*60,
+                    AccessTokenLifetime = 3600,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
-                    AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                    AbsoluteRefreshTokenLifetime = 3600,
                     RefreshTokenUsage = TokenUsage.ReUse
 
                 },
