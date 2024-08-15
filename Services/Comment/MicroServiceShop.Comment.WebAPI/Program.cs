@@ -1,11 +1,11 @@
-using MicroServiceShop.Catalog.Services.Interfaces;
-using MicroServiceShop.Catalog.Services;
-using MicroServiceShop.Catalog.Settings;
-using Microsoft.Extensions.Options;
-using System.Reflection;
+using MicroServiceShop.Comment.WebAPI.Services;
+using MicroServiceShop.Comment.WebAPI.Services.Interfaces;
+using MicroServiceShop.Comment.WebAPI.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,23 +21,14 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
 });
 
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
-builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
-    options.Audience = "resource_catalog";
+    options.Audience = "resource_comment";
     options.RequireHttpsMetadata = false;
 });
-
-
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
-builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
 builder.Services.AddCors(options =>
 {
@@ -48,6 +39,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
 
 var app = builder.Build();
