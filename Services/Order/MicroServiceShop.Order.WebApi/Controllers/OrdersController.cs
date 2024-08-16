@@ -3,7 +3,7 @@ using MicroServiceShop.Order.Application.Commands.OrderCommands;
 using MicroServiceShop.Order.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MicroServiceShop.Order.WebApi.Controllers
+namespace MicroServiceShop.Order.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

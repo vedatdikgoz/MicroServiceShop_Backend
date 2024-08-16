@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.Infrastructure", "Services\Order\MicroServiceShop.Order.Infrastructure\MicroServiceShop.Order.Infrastructure.csproj", "{CA2148A5-3EE0-4805-A0BD-DA5C82FD98CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.WebApi", "Services\Order\MicroServiceShop.Order.WebApi\MicroServiceShop.Order.WebApi.csproj", "{296D2601-36DD-44C8-B137-9952CBD0F90D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.WebAPI", "Services\Order\MicroServiceShop.Order.WebApi\MicroServiceShop.Order.WebAPI.csproj", "{296D2601-36DD-44C8-B137-9952CBD0F90D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{D9FE10CD-4829-4CD0-A6F2-98A6AF116828}"
 EndProject

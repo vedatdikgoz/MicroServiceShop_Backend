@@ -16,10 +16,19 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
     options.RequireHttpsMetadata = false;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    });
+});
 var app = builder.Build();
 
 
-app.MapControllers(); 
-
+app.MapControllers();
+app.UseCors("CorsPolicy");
+app.UseAuthorization();
 await app.UseOcelot();
 app.Run();

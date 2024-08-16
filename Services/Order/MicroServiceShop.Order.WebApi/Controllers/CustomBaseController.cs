@@ -1,7 +1,7 @@
 ﻿using MicroServiceShop.Core.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MicroServiceShop.Order.WebApi.Controllers
+namespace MicroServiceShop.Order.WebAPI.Controllers
 {
     public class CustomBaseController : ControllerBase
     {

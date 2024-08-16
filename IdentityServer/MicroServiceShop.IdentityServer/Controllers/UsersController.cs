@@ -8,27 +8,23 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 namespace MicroServiceShop.IdentityServer.Controllers
 {
-    //[Authorize(IdentityServerConstants.LocalApi.PolicyName)]
+    [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         
-        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
@@ -46,7 +42,28 @@ namespace MicroServiceShop.IdentityServer.Controllers
             }
 
             return NoContent();
-        } 
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
+
+            if (userIdClaim == null)
+            {
+                return BadRequest();
+            }
+
+            var user = await _userManager.FindByIdAsync(userIdClaim.Value);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(new {user.Id, user.Name, user.Surname, user.UserName, user.Email});
+        }
+
     }
 
 }
