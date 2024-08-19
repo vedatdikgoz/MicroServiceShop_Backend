@@ -34,8 +34,7 @@ namespace MicroServiceShop.Basket.WebAPI.Services
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
         {
             var status = await _redisService.GetDb().StringSetAsync(basketDto.UserId, JsonSerializer.Serialize(basketDto));
-
-            return status ? Response<bool>.Success(204) : Response<bool>.Fail("Basket could not update or save", 500);
+            return status ? Response<bool>.Success(true,204) : Response<bool>.Fail("Basket could not update or save", 500);
         }
 
     }
