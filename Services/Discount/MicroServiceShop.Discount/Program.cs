@@ -1,3 +1,4 @@
+using MicroServiceShop.Core.Services;
 using MicroServiceShop.Discount.Services;
 using MicroServiceShop.Discount.Services.Interfaces;
 using MicroServiceShop.Discount.Settings;
@@ -15,12 +16,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-builder.Services.AddControllers(opt =>
-{
-    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-});
+//builder.Services.AddControllers(opt =>
+//{
+//    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+//});
 
 builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
