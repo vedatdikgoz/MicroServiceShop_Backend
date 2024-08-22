@@ -4,6 +4,7 @@ using MicroServiceShop.Order.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroServiceShop.Order.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    partial class OrderContextModelSnapshot : ModelSnapshot
+    [Migration("20240821215633_modifiedAddress")]
+    partial class modifiedAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,6 +34,9 @@ namespace MicroServiceShop.Order.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AdressLine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdressLine2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
@@ -78,7 +84,7 @@ namespace MicroServiceShop.Order.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(9,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -110,10 +116,10 @@ namespace MicroServiceShop.Order.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ProductPrice")
-                        .HasColumnType("decimal(9,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("ProductTotalPrice")
-                        .HasColumnType("decimal(9,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

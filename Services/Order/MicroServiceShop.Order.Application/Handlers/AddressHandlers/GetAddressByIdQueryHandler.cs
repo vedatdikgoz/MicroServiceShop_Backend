@@ -24,11 +24,16 @@ namespace MicroServiceShop.Order.Application.Handlers.AddressHandlers
             return new AddressDto
             {
                 Id = value.Id,
-                City = value.City,
+                Country = value.Country,
                 District = value.District,
-                Street = value.Street,
-                UserId = value.UserId,
+                Email = value.Email,
                 ZipCode = value.ZipCode,
+                UserId = value.UserId,
+                Name = value.Name,
+                Surname = value.Surname,
+                Phone = value.Phone,
+                Province = value.Province,
+                AdressLine = value.AdressLine
             };
         }
     }

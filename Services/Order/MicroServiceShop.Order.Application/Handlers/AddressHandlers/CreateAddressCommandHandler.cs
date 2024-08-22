@@ -20,12 +20,21 @@ namespace MicroServiceShop.Order.Application.Handlers.AddressHandlers
         {
             await _repository.CreateAsync(new Address
             {
-                City = request.City,
+                Country = request.Country,
                 District = request.District,
-                Street = request.Street,
+                Email = request.Email,
                 ZipCode = request.ZipCode,
                 UserId = request.UserId,
-            }); ;
+                Name = request.Name,
+                Surname = request.Surname,
+                Phone = request.Phone,
+                Province = request.Province,
+                AdressLine = request.AdressLine
+
+            }); 
         }
     }
 }
+
+
+
