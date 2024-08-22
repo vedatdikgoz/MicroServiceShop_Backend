@@ -22,11 +22,16 @@ namespace MicroServiceShop.Order.Application.Handlers.AddressHandlers
             return values.Select(x => new AddressDto
             {
                 Id = x.Id,
-                City = x.City,
+                Country = x.Country,
                 District = x.District,
-                Street = x.Street,
+                Email = x.Email,
                 ZipCode = x.ZipCode,
                 UserId = x.UserId,
+                Name = x.Name,
+                Surname = x.Surname,
+                Phone = x.Phone,
+                Province = x.Province,
+                AdressLine = x.AdressLine
             }).ToList();
         }
     }
