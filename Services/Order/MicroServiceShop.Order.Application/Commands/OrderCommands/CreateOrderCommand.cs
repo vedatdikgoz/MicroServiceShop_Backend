@@ -1,6 +1,7 @@
 ﻿using MediatR;
 
 
+
 namespace MicroServiceShop.Order.Application.Commands.OrderCommands
 {
     public class CreateOrderCommand : IRequest
