@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using MicroServiceShop.Order.Application.Commands.OrderCommands;
 using MicroServiceShop.Order.Application.Queries;
+using MicroServiceShop.Order.Application.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroServiceShop.Order.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class OrdersController : CustomBaseController
     {
         private readonly IMediator _mediator;
         public OrdersController(IMediator mediator)
@@ -19,14 +20,21 @@ namespace MicroServiceShop.Order.WebAPI.Controllers
         public async Task<IActionResult> OrderList()
         {
             var response = await _mediator.Send(new GetOrderQuery());
-            return Ok(response);
+            return CreateActionResultInstance(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
             var response = await _mediator.Send(new GetOrderByIdQuery(id));
-            return Ok(response);
+            return CreateActionResultInstance(response);
+        }
+
+        [HttpGet("user={userId}")]
+        public async Task<IActionResult> GetOrderByUserId(string userId)
+        {
+            var response = await _mediator.Send(new GetOrderByUserIdQuery(userId));
+            return CreateActionResultInstance(response);
         }
 
         [HttpPost]
@@ -34,6 +42,7 @@ namespace MicroServiceShop.Order.WebAPI.Controllers
         {
             await _mediator.Send(command);
             return Ok("Sipariş oluşturuldu.");
+
         }
 
         [HttpDelete]

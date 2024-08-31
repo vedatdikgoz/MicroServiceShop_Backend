@@ -1,12 +1,14 @@
 ﻿using MediatR;
+using MicroServiceShop.Core.Dtos;
 using MicroServiceShop.Order.Application.Interfaces;
 using MicroServiceShop.Order.Application.Queries;
 using MicroServiceShop.Order.Application.Results;
 using MicroServiceShop.Order.Domain.Entities;
+using System.Net;
 
 namespace MicroServiceShop.Order.Application.Handlers.OrderItemHandlers
 {
-    public class GetOrderItemByIdQueryHandler : IRequestHandler<GetOrderItemByIdQuery, OrderItemDto>
+    public class GetOrderItemByIdQueryHandler : IRequestHandler<GetOrderItemByIdQuery, Response<OrderItemDto>>
     {
         private readonly IRepository<OrderItem> _repository;
 
@@ -16,10 +18,10 @@ namespace MicroServiceShop.Order.Application.Handlers.OrderItemHandlers
         }
 
       
-        public async Task<OrderItemDto> Handle(GetOrderItemByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<OrderItemDto>> Handle(GetOrderItemByIdQuery request, CancellationToken cancellationToken)
         {
             var value = await _repository.GetByIdAsync(request.Id);
-            return new OrderItemDto
+            var orderItem = new OrderItemDto
             {
                 Id = value.Id,
                 ProductId = value.ProductId,
@@ -29,6 +31,8 @@ namespace MicroServiceShop.Order.Application.Handlers.OrderItemHandlers
                 ProductTotalPrice = value.ProductTotalPrice,
                 OrderId = value.OrderId
             };
+
+            return Response<OrderItemDto>.Success(orderItem, 200);
         }
     }
 }

@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
+builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 builder.Services.AddApplicationService(builder.Configuration);
 
 

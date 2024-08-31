@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\MicroServiceShop.Core\MicroServiceShop.Core.csproj" />
     <ProjectReference Include="..\MicroServiceShop.Order.Domain\MicroServiceShop.Order.Domain.csproj" />
   </ItemGroup>
 
