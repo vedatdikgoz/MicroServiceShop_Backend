@@ -1,22 +1,23 @@
 using MicroServiceShop.Core.Services;
-using MicroServiceShop.Discount.Services;
-using MicroServiceShop.Discount.Services.Interfaces;
-using MicroServiceShop.Discount.Settings;
+using MicroServiceShop.Message.WebAPI.DataAccess.Context;
+using MicroServiceShop.Message.WebAPI.Services;
+using MicroServiceShop.Message.WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<DapperContext>();
-builder.Services.AddScoped<IDiscountService, DiscountService>();
 
 builder.Services.AddControllers();
-
+builder.Services.AddScoped<DataContext>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<IUserMessageService, UserMessageService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 builder.Services.AddControllers(opt =>
 {
@@ -26,8 +27,18 @@ builder.Services.AddControllers(opt =>
 builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
-    options.Audience = "resource_discount";
+    options.Audience = "resource_message";
     options.RequireHttpsMetadata = false;
+});
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    });
 });
 
 var app = builder.Build();
@@ -40,7 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
