@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Data;
-using static Dapper.SqlMapper;
 
 namespace MicroServiceShop.Discount.Settings
 {
@@ -34,20 +33,20 @@ namespace MicroServiceShop.Discount.Settings
             {
                 entity.ToTable("coupons", DEFAULT_SCHEMA);
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("id");
+                //entity.Property(e => e.Id)
+                //    .HasColumnName("id");
 
-                entity.Property(e => e.Code)
-                    .HasColumnName("code");
+                //entity.Property(e => e.Code)
+                //    .HasColumnName("code");
 
-                entity.Property(e => e.Rate)
-                    .HasColumnName("rate");
+                //entity.Property(e => e.Rate)
+                //    .HasColumnName("rate");
 
-                entity.Property(e => e.IsActive)
-                    .HasColumnName("isactive");
+                //entity.Property(e => e.IsActive)
+                //    .HasColumnName("isactive");
 
-                entity.Property(e => e.ValidDate)
-                    .HasColumnName("validdate");
+                //entity.Property(e => e.ValidDate)
+                //    .HasColumnName("validdate");
 
             });
         }

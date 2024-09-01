@@ -20,16 +20,16 @@ namespace MicroServiceShop.Discount.WebAPI.Migrations
                 schema: "discount",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    code = table.Column<string>(type: "text", nullable: true),
-                    rate = table.Column<int>(type: "integer", nullable: false),
-                    isactive = table.Column<bool>(type: "boolean", nullable: false),
-                    validdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Code = table.Column<string>(type: "text", nullable: true),
+                    Rate = table.Column<int>(type: "integer", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    ValidDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_coupons", x => x.id);
+                    table.PrimaryKey("PK_coupons", x => x.Id);
                 });
         }
 
