@@ -18,6 +18,7 @@ namespace MicroServiceShop.IdentityServer
             new ApiResource("resource_gateway") {Scopes = {"gateway_fullpermission"}},
             new ApiResource("resource_comment") {Scopes = {"comment_fullpermission"}},
             new ApiResource("resource_message") {Scopes = {"message_fullpermission"}},
+            new ApiResource("resource_cargo") {Scopes = {"cargo_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
          };
 
@@ -48,6 +49,7 @@ namespace MicroServiceShop.IdentityServer
                 new ApiScope("gateway_fullpermission","Gateway API için tam erişim"),
                 new ApiScope("comment_fullpermission","Comment API için tam erişim"),
                 new ApiScope("message_fullpermission","Message API için tam erişim"),
+                new ApiScope("cargo_fullpermission","Cargo API için tam erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -85,6 +87,7 @@ namespace MicroServiceShop.IdentityServer
                         "order_fullpermission",
                         "discount_fullpermission",
                         "message_fullpermission",
+                        "cargo_fullpermission",
                         "gateway_fullpermission",
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.OpenId,
