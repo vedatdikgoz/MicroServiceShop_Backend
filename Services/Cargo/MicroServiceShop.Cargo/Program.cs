@@ -1,5 +1,9 @@
 using MicroServiceShop.Cargo.WebAPI.DataAccess;
-using Microsoft.EntityFrameworkCore;
+using MicroServiceShop.Cargo.WebAPI.Services;
+using MicroServiceShop.Cargo.WebAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +12,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<CargoContext>();
+builder.Services.AddScoped<ICargoCompanyService, CargoCompanyService>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+builder.Services.AddControllers(opt =>
+{
+    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+});
+
+builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
+{
+    options.Authority = builder.Configuration["IdentityServerURL"];
+    options.Audience = "resource_cargo";
+    options.RequireHttpsMetadata = false;
+});
 
 
-builder.Services.AddDbContext<CargoDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -26,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
