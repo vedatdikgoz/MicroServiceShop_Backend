@@ -132,6 +132,25 @@
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
         "AllowedScopes": [ "cargo_fullpermission" ]
       }
+    },
+
+    //Photo
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5016
+        }
+      ],
+      "UpstreamPathTemplate": "/services/photo/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "photo_fullpermission" ]
+      }
     }
 
   ],

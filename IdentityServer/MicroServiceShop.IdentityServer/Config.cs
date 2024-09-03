@@ -10,7 +10,7 @@ namespace MicroServiceShop.IdentityServer
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
          {
             new ApiResource("resource_catalog") {Scopes = {"catalog_fullpermission"}},
-            new ApiResource("resource_photo_stock") {Scopes = {"photo_stock_fullpermission"}},
+            new ApiResource("resource_photo") {Scopes = {"photo_fullpermission"}},
             new ApiResource("resource_basket") {Scopes = {"basket_fullpermission"}},
             new ApiResource("resource_discount") {Scopes = {"discount_fullpermission"}},
             new ApiResource("resource_order") {Scopes = {"order_fullpermission"}},
@@ -41,7 +41,7 @@ namespace MicroServiceShop.IdentityServer
             new ApiScope[]
             {
                 new ApiScope("catalog_fullpermission","Catalog API için tam erişim"),
-                new ApiScope("photo_stock_fullpermission","PhotoStock API için tam erişim"),
+                new ApiScope("photo_fullpermission","Photo API için tam erişim"),
                 new ApiScope("basket_fullpermission","Basket API için tam erişim"),
                 new ApiScope("discount_fullpermission","Discount API için tam erişim"),
                 new ApiScope("order_fullpermission","Order API için tam erişim"),
@@ -64,8 +64,7 @@ namespace MicroServiceShop.IdentityServer
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes =
                     {
-                        "catalog_fullpermission",
-                        "photo_stock_fullpermission",
+                        "catalog_fullpermission",                      
                         "comment_fullpermission",
                         "gateway_fullpermission",
                         IdentityServerConstants.LocalApi.ScopeName
@@ -82,6 +81,7 @@ namespace MicroServiceShop.IdentityServer
                     AllowedScopes =
                     {
                         "catalog_fullpermission",
+                        "photo_fullpermission",
                         "comment_fullpermission",
                         "basket_fullpermission",
                         "order_fullpermission",
