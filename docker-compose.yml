@@ -1,0 +1,116 @@
+services:
+  catalogdb:
+    image: mongo
+  basketdb:
+    image: redis
+  discountdb:
+    image: postgres
+  messagedb:
+    image: postgres
+  cargodb:
+    image: postgres
+  commentdb:
+    image: mongo
+  identitydb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  rabbitmq:
+    image: rabbitmq:3.9.10-management
+  catalog.api:
+    image: catalog_api_image
+    build:
+      context: .
+      dockerfile: Services/Catalog/MicroServiceShop.Catalog.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  identityserver.api:
+    image: identityserver_api_image
+    build:
+      context: .
+      dockerfile: IdentityServer/MicroServiceShop.IdentityServer/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  basket.api:
+    image: basket_api_image
+    build:
+      context: .
+      dockerfile: Services/Basket/MicroServiceShop.Basket.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  photostock.api:
+    image: photostock_api_image
+    build:
+      context: .
+      dockerfile: Services/PhotoStock/MicroServiceShop.PhotoStock.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  discount.api:
+    image: discount_api_image
+    build:
+      context: .
+      dockerfile: Services/Discount/MicroServiceShop.Discount.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  message.api:
+    image: message_api_image
+    build:
+      context: .
+      dockerfile: Services/Message/MicroServiceShop.Message.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  cargo.api:
+    image: cargo_api_image
+    build:
+      context: .
+      dockerfile: Services/Cargo/MicroServiceShop.Cargo.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  comment.api:
+    image: comment_api_image
+    build:
+      context: .
+      dockerfile: Services/Comment/MicroServiceShop.Comment.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  payment.api:
+    image: payment_api_image
+    build:
+      context: .
+      dockerfile: Services/Payment/MicroServiceShop.Payment.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  order.api:
+    image: order_api_image
+    build:
+      context: .
+      dockerfile: Services/Order/MicroServiceShop.Order.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+  gateway.api:
+    image: gateway_api_image
+    build:
+      context: .
+      dockerfile: Gateway/MicroServiceShop.Gateway/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+
+volumes:
+  catalogdb_volume:
+  discountdb_volume:
+  messagedb_volume:
+  cargodb_volume:
+  commentdb_volume:
+  identitydb_volume:
+  orderdb_volume:

@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
+          "Host": "localhost",
           "Port": 80
         }
       ],
@@ -25,7 +25,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "basket.api",
+          "Host": "localhost",
           "Port": 80
         }
       ],
@@ -44,7 +44,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "discount.api",
+          "Host": "localhost",
           "Port": 80
         }
       ],
@@ -57,14 +57,13 @@
       }
     },
 
-
     //Order
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "order.api",
+          "Host": "localhost",
           "Port": 80
         }
       ],
@@ -77,6 +76,7 @@
       }
     },
 
+
     //Comment
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -84,7 +84,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5018
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/services/comment/{everything}",
@@ -103,7 +103,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5019
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/services/message/{everything}",
@@ -122,7 +122,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5017
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/services/cargo/{everything}",
@@ -141,7 +141,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5016
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/services/photo/{everything}",
@@ -152,6 +152,7 @@
         "AllowedScopes": [ "photo_fullpermission" ]
       }
     }
+
 
   ],
   "GlobalConfiguration": {
