@@ -47,7 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.PhotoStock.WebAPI", "Services\PhotoStock\MicroServiceShop.PhotoStock.WebAPI\MicroServiceShop.PhotoStock.WebAPI.csproj", "{9FE8223F-5D40-40A9-999B-2237197013F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.WebApi", "Services\Order\MicroServiceShop.Order.WebAPI\MicroServiceShop.Order.WebApi.csproj", "{BD0124B3-64FD-4FA3-864B-CE88EEE83C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Order.WebAPI", "Services\Order\MicroServiceShop.Order.WebAPI\MicroServiceShop.Order.WebAPI.csproj", "{BD0124B3-64FD-4FA3-864B-CE88EEE83C3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Cargo.WebAPI", "Services\Cargo\MicroServiceShop.Cargo.WebAPI\MicroServiceShop.Cargo.WebAPI.csproj", "{41D27EEE-84CC-4605-B4CD-001156A20771}"
 EndProject
