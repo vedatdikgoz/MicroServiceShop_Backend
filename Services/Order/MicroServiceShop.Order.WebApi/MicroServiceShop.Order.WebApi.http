@@ -1,6 +1,0 @@
-@MicroServiceShop.Order.WebApi_HostAddress = http://localhost:5015
-
-GET {{MicroServiceShop.Order.WebApi_HostAddress}}/api/Addresses
-Accept: application/json
-
-###
