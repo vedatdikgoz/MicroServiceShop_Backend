@@ -31,7 +31,7 @@ namespace MicroServiceShop.IdentityServer
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); ;
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -75,14 +75,7 @@ namespace MicroServiceShop.IdentityServer
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                builder =>
-                {
-                    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
-                });
-            });
+         
         }
 
         public void Configure(IApplicationBuilder app)
