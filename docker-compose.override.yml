@@ -81,7 +81,6 @@ services:
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQUrl=rabbitmq
       - IdentityServerURL=http://identityserver.api
       - DatabaseSettings:ConnectionString=mongodb://catalogdb:27017
     ports:
@@ -149,14 +148,6 @@ services:
       - "5017:80"
     depends_on:
       - cargodb
-  payment.api:
-    container_name: payment.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - IdentityServerURL=http://identityserver.api
-      - RabbitMQUrl=rabbitmq
-    ports:
-      - "5012:80"
   comment.api:
     container_name: comment.api
     environment:
@@ -173,7 +164,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityServerURL=http://identityserver.api
-      - RabbitMQUrl=rabbitmq
       - "ConnectionStrings:DefaultConnection=Server=orderdb,1433;Database=orderDb; User=sa; Password=PassMass12*"
     ports:
       - "5015:80"

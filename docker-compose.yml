@@ -81,14 +81,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-  payment.api:
-    image: payment_api_image
-    build:
-      context: .
-      dockerfile: Services/Payment/MicroServiceShop.Payment.WebAPI/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
   order.api:
     image: order_api_image
     build:
@@ -103,7 +95,7 @@ services:
       context: .
       dockerfile: Gateway/MicroServiceShop.Gateway/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
 
 volumes:

@@ -1,15 +1,24 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
 EXPOSE 80
 
-COPY Gateway/MicroServiceShop.Gateway/MicroServiceShop.Gateway.csproj Gateway/MicroServiceShop.Gateway/
-RUN dotnet restore Gateway/MicroServiceShop.Gateway/MicroServiceShop.Gateway.csproj
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Gateway/MicroServiceShop.Gateway/MicroServiceShop.Gateway.csproj", "Gateway/MicroServiceShop.Gateway/"]
+RUN dotnet restore "./Gateway/MicroServiceShop.Gateway/MicroServiceShop.Gateway.csproj"
 COPY . .
+WORKDIR "/src/Gateway/MicroServiceShop.Gateway"
+RUN dotnet build "./MicroServiceShop.Gateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-RUN dotnet publish Gateway/MicroServiceShop.Gateway/MicroServiceShop.Gateway.csproj -c Release -o out
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./MicroServiceShop.Gateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 as runtime
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MicroServiceShop.Gateway.dll"]

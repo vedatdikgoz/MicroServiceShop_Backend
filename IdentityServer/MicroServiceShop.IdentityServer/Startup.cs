@@ -61,7 +61,7 @@ namespace MicroServiceShop.IdentityServer
                 options.AddPolicy("CorsPolicy",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                    builder.AllowAnyOrigin().WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                 });
             });
                  
