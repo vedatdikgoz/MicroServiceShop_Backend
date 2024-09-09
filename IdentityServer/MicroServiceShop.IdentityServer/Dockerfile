@@ -1,14 +1,23 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1 as build
+
+
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
 
-COPY IdentityServer/MicroServiceShop.IdentityServer/MicroServiceShop.IdentityServer.csproj IdentityServer/MicroServiceShop.IdentityServer/
-RUN dotnet restore IdentityServer/MicroServiceShop.IdentityServer/MicroServiceShop.IdentityServer.csproj
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["IdentityServer/MicroServiceShop.IdentityServer/MicroServiceShop.IdentityServer.csproj", "IdentityServer/MicroServiceShop.IdentityServer/"]
+RUN dotnet restore "./IdentityServer/MicroServiceShop.IdentityServer/MicroServiceShop.IdentityServer.csproj"
 COPY . .
+WORKDIR "/src/IdentityServer/MicroServiceShop.IdentityServer"
+RUN dotnet build "./MicroServiceShop.IdentityServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-RUN dotnet publish IdentityServer/MicroServiceShop.IdentityServer/MicroServiceShop.IdentityServer.csproj -c Release -o out
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./MicroServiceShop.IdentityServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 as runtime
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MicroServiceShop.IdentityServer.dll"]
