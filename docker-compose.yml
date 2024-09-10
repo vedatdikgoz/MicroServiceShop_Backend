@@ -106,3 +106,4 @@ volumes:
   commentdb_volume:
   identitydb_volume:
   orderdb_volume:
+  elasticdb_volume: 
