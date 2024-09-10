@@ -63,12 +63,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    var dapperContext = serviceProvider.GetRequiredService<DapperContext>();
-//    dapperContext.Database.Migrate();
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var dapperContext = serviceProvider.GetRequiredService<DapperContext>();
+    dapperContext.Database.Migrate();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

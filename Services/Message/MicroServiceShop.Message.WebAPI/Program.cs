@@ -74,12 +74,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    var dataContext = serviceProvider.GetRequiredService<DataContext>();
-//    dataContext.Database.Migrate();
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var dataContext = serviceProvider.GetRequiredService<DataContext>();
+    dataContext.Database.Migrate();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -74,12 +74,12 @@ builder.Services.AddDbContext<OrderContext>(opt =>
 
 var app = builder.Build();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    var orderContext = serviceProvider.GetRequiredService<OrderContext>();
-//    orderContext.Database.Migrate();
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var orderContext = serviceProvider.GetRequiredService<OrderContext>();
+    orderContext.Database.Migrate();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
