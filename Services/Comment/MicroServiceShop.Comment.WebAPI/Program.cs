@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 // Add services to the container.
 
 builder.Services.AddControllers();

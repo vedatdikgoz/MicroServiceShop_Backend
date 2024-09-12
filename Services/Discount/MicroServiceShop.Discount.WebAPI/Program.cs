@@ -5,11 +5,11 @@ using MicroServiceShop.Discount.WebAPI.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 // Add services to the container.
 builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
@@ -63,12 +63,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-    var dapperContext = serviceProvider.GetRequiredService<DapperContext>();
-    dapperContext.Database.Migrate();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var serviceProvider = scope.ServiceProvider;
+//    var dapperContext = serviceProvider.GetRequiredService<DapperContext>();
+//    dapperContext.Database.Migrate();
+//}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

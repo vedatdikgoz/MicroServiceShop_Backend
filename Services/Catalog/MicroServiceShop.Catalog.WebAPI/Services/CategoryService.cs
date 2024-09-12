@@ -13,18 +13,21 @@ namespace MicroServiceShop.Catalog.WebAPI.Services
     {
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
-        public CategoryService(IMapper mapper, IDatabaseSettings databaseSettings)
+        private readonly ILogger<CategoryService> _logger;
+        public CategoryService(IMapper mapper, IDatabaseSettings databaseSettings, ILogger<CategoryService> logger)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
 
             _categoryCollection = database.GetCollection<Category>(databaseSettings.CategoryCollectionName);
             _mapper = mapper;
+            _logger = logger;
         }
         public async Task<Response<CategoryDto>> CreateAsync(CreateCategoryDto createCategoryDto)
         {
             var newCategory = _mapper.Map<Category>(createCategoryDto);
             await _categoryCollection.InsertOneAsync(newCategory);
+            _logger.LogInformation("kategori eklendi");
             return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(newCategory), 200);
         }
 
