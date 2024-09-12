@@ -4,12 +4,12 @@ using MicroServiceShop.Cargo.WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -72,12 +72,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-    var cargoContext = serviceProvider.GetRequiredService<CargoContext>();
-    cargoContext.Database.Migrate();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var serviceProvider = scope.ServiceProvider;
+//    var cargoContext = serviceProvider.GetRequiredService<CargoContext>();
+//    cargoContext.Database.Migrate();
+//}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
