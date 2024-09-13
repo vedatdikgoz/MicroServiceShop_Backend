@@ -1,3 +1,8 @@
+
+using CloudinaryDotNet;
+using MassTransit;
+using MicroServiceShop.PhotoStock.WebAPI.Consumers;
+using MicroServiceShop.PhotoStock.WebAPI.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -48,7 +53,7 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("GatewayAuthenticationScheme", options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer( options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
     options.Audience = "resource_photo";
@@ -64,6 +69,41 @@ builder.Services.AddCors(options =>
         builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
     });
 });
+
+builder.Services.AddScoped<Cloudinary>(provider =>
+{
+    var account = new Account(
+                builder.Configuration["CloudinarySettings:CloudName"],
+                builder.Configuration["CloudinarySettings:ApiKey"],
+                builder.Configuration["CloudinarySettings:ApiSecret"]);
+    return new Cloudinary(account);
+});
+
+builder.Services.AddScoped<UploadPhotoConsumer>();
+builder.Services.AddMassTransit(x =>
+{
+    // Consumer'ý ekleyin
+    x.AddConsumer<UploadPhotoConsumer>();
+
+    // RequestClient'ý tanýmlayýn
+    x.AddRequestClient<UploadPhotoMessage>();
+
+    // RabbitMQ ayarlarý
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("upload-photo-queue", e =>
+        {
+            e.ConfigureConsumer<UploadPhotoConsumer>(context);
+        });
+    });
+});
+
 
 var app = builder.Build();
 
