@@ -1,7 +1,7 @@
 using MicroServiceShop.Comment.WebAPI.Services;
 using MicroServiceShop.Comment.WebAPI.Services.Interfaces;
 using MicroServiceShop.Comment.WebAPI.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MicroServiceShop.Comment.WebAPI.SignalRHub;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
@@ -12,7 +12,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 // Add services to the container.
-
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -54,7 +54,7 @@ builder.Services.AddControllers(opt =>
 
 builder.Services.AddScoped<ICommentService, CommentService>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("GatewayAuthenticationScheme",options =>
+builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
     options.Audience = "resource_comment";
@@ -66,7 +66,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
     builder =>
     {
-        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()
+               .SetIsOriginAllowed(host => true);
     });
 });
 
@@ -83,12 +87,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapHub<CommentHub>("/commenthub");
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
