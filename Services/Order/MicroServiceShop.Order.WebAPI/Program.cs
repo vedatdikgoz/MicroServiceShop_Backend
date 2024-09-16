@@ -73,6 +73,19 @@ builder.Services.AddDbContext<OrderContext>(opt =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()
+               .SetIsOriginAllowed(host => true);
+    });
+});
+
 var app = builder.Build();
 
 //using (var scope = app.Services.CreateScope())
@@ -89,7 +102,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("CorsPolicy");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

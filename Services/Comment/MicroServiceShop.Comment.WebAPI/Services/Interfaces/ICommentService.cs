@@ -12,5 +12,6 @@ namespace MicroServiceShop.Comment.WebAPI.Services.Interfaces
         Task<Response<UserCommentDto>> CreateAsync(CreateUserCommentDto createCommentDto);
         Task<Response<NoContent>> UpdateAsync(UpdateUserCommentDto updateCommentDto);
         Task<Response<NoContent>> DeleteAsync(string id);
+        Task<int> GetCommentCount();
     }
 }

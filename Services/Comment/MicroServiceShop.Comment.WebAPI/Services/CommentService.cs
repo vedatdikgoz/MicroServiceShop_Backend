@@ -21,6 +21,14 @@ namespace MicroServiceShop.Comment.WebAPI.Services
             _userCommentCollection = database.GetCollection<UserComment>(databaseSettings.CommentCollectionName);
             _mapper = mapper;
         }
+
+        public async Task<int> GetCommentCount()
+        {
+            var result = await _userCommentCollection.CountDocumentsAsync(FilterDefinition<UserComment>.Empty);
+            int commentCount = (int)result;
+            return commentCount;
+        }
+
         public async Task<Response<UserCommentDto>> CreateAsync(CreateUserCommentDto createCommentDto)
         {
             var newComment = _mapper.Map<UserComment>(createCommentDto);

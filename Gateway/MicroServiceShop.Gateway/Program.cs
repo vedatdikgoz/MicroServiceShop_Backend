@@ -21,14 +21,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
     builder =>
     {
-        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()
+               .SetIsOriginAllowed(host => true);
     });
 });
 var app = builder.Build();
 
-
-app.MapControllers();
 app.UseCors("CorsPolicy");
-app.UseAuthorization();
+
 await app.UseOcelot();
 app.Run();
