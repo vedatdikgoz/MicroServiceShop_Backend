@@ -35,6 +35,7 @@ The microservices architecture is organized into several key components:
 - **PostgreSQL**: Relational database used in Discount, Message, and Order services.
 - **SQL Server**: Relational database for Identity server management.
 - **MediatR**: Used in the Order service for the Command and Query Responsibility Segregation (CQRS) pattern.
+- **SignalR**: Used for real-time communication, enabling server-side code to push content to connected clients instantly.
 - **AutoMapper**: For object-to-object mapping across different services.
 - **JWT Authentication**: Used to secure microservices and ensure authorized access.
 - **Ocelot**: API Gateway used for routing requests to the appropriate microservice.
