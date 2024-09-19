@@ -1,38 +1,33 @@
 ﻿using MediatR;
 using MicroServiceShop.Core.Dtos;
-using MicroServiceShop.Order.Application.Interfaces;
+using MicroServiceShop.Order.Application.Mapping;
 using MicroServiceShop.Order.Application.Queries;
 using MicroServiceShop.Order.Application.Results;
+using MicroServiceShop.Order.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace MicroServiceShop.Order.Application.Handlers.OrderHandlers
 {
-    public class GetOrdersByUserIdQueryHandler : IRequestHandler<GetOrderByUserIdQuery, Response<List<OrderDto>>>
+    internal class GetOrdersByUserIdQueryHandler : IRequestHandler<GetOrdersByUserIdQuery, Response<List<OrderDto>>>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly OrderContext _context;
 
-        public GetOrdersByUserIdQueryHandler(IOrderRepository orderRepository)
+        public GetOrdersByUserIdQueryHandler(OrderContext context)
         {
-            _orderRepository = orderRepository;
+            _context = context;
         }
 
-
-        public async Task<Response<List<OrderDto>>> Handle(GetOrderByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<OrderDto>>> Handle(GetOrdersByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var values = await _orderRepository.GetOrderByUserId(request.userId);
+            var orders = await _context.Orders.Include(x => x.OrderItems).Where(x => x.BuyerId == request.UserId).ToListAsync();
 
-            if (values.Count == 0)
+            if (!orders.Any())
             {
-                return Response<List<OrderDto>>.Success([], 200);
+                return Response<List<OrderDto>>.Success(new List<OrderDto>(), 200);
             }
 
-            var ordersDto = values.Select(x => new OrderDto
-            {
-                Id = x.Id,
-                OrderDate = x.OrderDate,
-                TotalPrice = x.TotalPrice,
-                UserId = x.UserId,
-            }).ToList();
+            var ordersDto = ObjectMapper.Mapper.Map<List<OrderDto>>(orders);
 
             return Response<List<OrderDto>>.Success(ordersDto, 200);
         }
