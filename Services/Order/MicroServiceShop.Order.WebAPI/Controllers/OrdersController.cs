@@ -1,7 +1,7 @@
 ﻿using MediatR;
+using MicroServiceShop.Core.Services;
 using MicroServiceShop.Order.Application.Commands.OrderCommands;
 using MicroServiceShop.Order.Application.Queries;
-using MicroServiceShop.Order.Application.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroServiceShop.Order.WebAPI.Controllers
@@ -11,52 +11,29 @@ namespace MicroServiceShop.Order.WebAPI.Controllers
     public class OrdersController : CustomBaseController
     {
         private readonly IMediator _mediator;
-        public OrdersController(IMediator mediator)
+        private readonly ISharedIdentityService _sharedIdentityService;
+        public OrdersController(IMediator mediator, ISharedIdentityService sharedIdentityService)
         {
             _mediator = mediator;
+            _sharedIdentityService = sharedIdentityService;
         }
+
 
         [HttpGet]
-        public async Task<IActionResult> OrderList()
+        public async Task<IActionResult> GetOrders()
         {
-            var response = await _mediator.Send(new GetOrderQuery());
-            return CreateActionResultInstance(response);
-        }
+            var response = await _mediator.Send(new GetOrdersByUserIdQuery { UserId = _sharedIdentityService.GetUserId() });
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
-        {
-            var response = await _mediator.Send(new GetOrderByIdQuery(id));
-            return CreateActionResultInstance(response);
-        }
-
-        [HttpGet("user={userId}")]
-        public async Task<IActionResult> GetOrderByUserId(string userId)
-        {
-            var response = await _mediator.Send(new GetOrderByUserIdQuery(userId));
             return CreateActionResultInstance(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
+        public async Task<IActionResult> SaveOrder(CreateOrderCommand createOrderCommand)
         {
-            await _mediator.Send(command);
-            return Ok("Sipariş oluşturuldu.");
+            var response = await _mediator.Send(createOrderCommand);
 
+            return CreateActionResultInstance(response);
         }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteOrder(int id)
-        {
-            await _mediator.Send(new DeleteOrderCommand(id));
-            return Ok("Sipariş silindi");
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateOrder(UpdateOrderCommand command)
-        {
-            await _mediator.Send(command);
-            return Ok("Sipariş güncellendi");
-        }
+       
     }
 }

@@ -89,6 +89,7 @@ namespace MicroServiceShop.IdentityServer6
                         "discount_fullpermission",
                         "message_fullpermission",
                         "cargo_fullpermission",
+                        "payment_fullpermission",
                         "gateway_fullpermission",
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.OpenId,

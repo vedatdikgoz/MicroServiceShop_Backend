@@ -68,7 +68,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("GatewayAuthenticationScheme", options =>
+builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
     options.Audience = "resource_discount";

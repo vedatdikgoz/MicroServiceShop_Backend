@@ -1,25 +1,27 @@
-using MicroServiceShop.Order.Application.Interfaces;
 using MicroServiceShop.Order.Infrastructure;
-using MicroServiceShop.Order.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MicroServiceShop.Order.Application.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serilog;
+using MicroServiceShop.Order.Application.Handlers.OrderHandlers;
+using MicroServiceShop.Core.Services;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
-builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 builder.Services.AddApplicationService(builder.Configuration);
 
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
 builder.Services.AddControllers();
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommandHandler).Assembly));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -58,7 +60,7 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("GatewayAuthenticationScheme", options =>
+builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
 {
     options.Authority = builder.Configuration["IdentityServerURL"];
     options.Audience = "resource_order";

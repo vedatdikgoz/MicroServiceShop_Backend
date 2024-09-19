@@ -151,6 +151,25 @@
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
         "AllowedScopes": [ "photo_fullpermission" ]
       }
+    },
+
+    //Payment
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/services/payment/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "payment_fullpermission" ]
+      }
     }
 
 
