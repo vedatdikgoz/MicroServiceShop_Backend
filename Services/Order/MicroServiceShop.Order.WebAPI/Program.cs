@@ -7,6 +7,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using MicroServiceShop.Order.Application.Handlers.OrderHandlers;
 using MicroServiceShop.Core.Services;
+using MassTransit;
+using MicroServiceShop.Order.Application.Consumers;
 
 
 
@@ -87,6 +89,26 @@ builder.Services.AddCors(options =>
                .SetIsOriginAllowed(host => true);
     });
 });
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<CreateOrderMessageCommandConsumer>();
+    // Default Port : 5672
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("create-order-service", e =>
+        {
+            e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+        });
+    });
+});
+
 
 var app = builder.Build();
 
