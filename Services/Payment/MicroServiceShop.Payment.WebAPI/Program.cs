@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Message.WebAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Payment.WebAPI", Version = "v1" });
 
     // Authorization Header için JWT Bearer yapýlandýrmasý
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
