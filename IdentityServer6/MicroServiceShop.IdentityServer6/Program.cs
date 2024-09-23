@@ -1,5 +1,4 @@
-using Duende.IdentityServer.Models;
-using MicroServiceShop.IdentityServer.Models;
+using MicroServiceShop.IdentityServer6.Models;
 using MicroServiceShop.IdentityServer6;
 using MicroServiceShop.IdentityServer6.Data;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +18,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
     builder =>
     {
-        builder.AllowAnyOrigin().WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()
+               .SetIsOriginAllowed(host => true);
     });
 });
 
@@ -52,6 +55,9 @@ var app = builder.Build();
 
 app.UseCors("CorsPolicy");
 app.UseIdentityServer();
-app.MapGet("/", () => "IdentityServer 6 çalýþýyor!");
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+
 
 app.Run();

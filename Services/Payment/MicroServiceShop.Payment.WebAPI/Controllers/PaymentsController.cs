@@ -26,6 +26,7 @@ namespace MicroServiceShop.Payment.WebAPI.Controllers
             var createOrderMessageCommand = new CreateOrderMessageCommand();
 
             createOrderMessageCommand.BuyerId = paymentDto.Order.BuyerId;
+            createOrderMessageCommand.Country = paymentDto.Order.Address.Country;
             createOrderMessageCommand.Province = paymentDto.Order.Address.Province;
             createOrderMessageCommand.District = paymentDto.Order.Address.District;
             createOrderMessageCommand.AddressLine = paymentDto.Order.Address.AddressLine;
@@ -41,9 +42,9 @@ namespace MicroServiceShop.Payment.WebAPI.Controllers
                     ProductName = x.ProductName
                 });
             });
-
+            
             await sendEndpoint.Send(createOrderMessageCommand);
-
+           
             return CreateActionResultInstance(Core.Dtos.Response<NoContent>.Success(200));
         }
     }

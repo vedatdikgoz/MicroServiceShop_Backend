@@ -1,26 +1,24 @@
-﻿using IdentityServer4;
-using MicroServiceShop.IdentityServer.Dtos;
-using MicroServiceShop.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using MicroServiceShop.IdentityServer6.Dtos;
+using MicroServiceShop.IdentityServer6.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-namespace MicroServiceShop.IdentityServer.Controllers
+
+namespace MicroServiceShop.IdentityServer6.Controllers
 {
     [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
     [Route("api/[controller]/[action]")]
-    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        
+
         public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
+
 
 
         [AllowAnonymous]
@@ -60,10 +58,8 @@ namespace MicroServiceShop.IdentityServer.Controllers
                 return BadRequest();
             }
 
-            return Ok(new {user.Id, user.Name, user.Surname, user.UserName, user.Email});
+            return Ok(new { user.Id, user.Name, user.Surname, user.UserName, user.Email });
         }
 
     }
-
 }
-

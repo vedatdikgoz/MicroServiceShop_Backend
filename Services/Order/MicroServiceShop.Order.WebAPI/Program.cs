@@ -109,7 +109,7 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-
+builder.Services.AddMassTransitHostedService();
 var app = builder.Build();
 
 //using (var scope = app.Services.CreateScope())
