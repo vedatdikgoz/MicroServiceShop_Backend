@@ -79,7 +79,7 @@ builder.Services.AddMassTransit(x =>
         });
     });
 });
-
+builder.Services.AddMassTransitHostedService();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

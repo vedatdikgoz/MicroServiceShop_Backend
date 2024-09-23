@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using MicroServiceShop.IdentityServer6.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MicroServiceShop.IdentityServer.Models;
+
 
 namespace MicroServiceShop.IdentityServer6.Data
 {
