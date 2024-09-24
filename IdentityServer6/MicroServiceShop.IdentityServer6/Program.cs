@@ -3,9 +3,10 @@ using MicroServiceShop.IdentityServer6;
 using MicroServiceShop.IdentityServer6.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 // Add services to the container.
 builder.Services.AddLocalApiAuthentication();
 builder.Services.AddControllers();

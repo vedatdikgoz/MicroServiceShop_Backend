@@ -97,9 +97,9 @@ namespace MicroServiceShop.IdentityServer
                         IdentityServerConstants.LocalApi.ScopeName,
                         "roles"
                     },
-                    AccessTokenLifetime = 3600*10,
+                    AccessTokenLifetime = 3600,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
-                    AbsoluteRefreshTokenLifetime = 3600*10,
+                    AbsoluteRefreshTokenLifetime = 3600,
                     RefreshTokenUsage = TokenUsage.ReUse
 
                 },

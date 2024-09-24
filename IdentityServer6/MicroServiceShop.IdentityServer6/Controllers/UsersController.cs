@@ -13,17 +13,19 @@ namespace MicroServiceShop.IdentityServer6.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, ILogger<UsersController> logger)
         {
             _userManager = userManager;
+            _logger = logger;
         }
 
 
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             var user = new ApplicationUser
             {
@@ -37,7 +39,7 @@ namespace MicroServiceShop.IdentityServer6.Controllers
             {
                 return BadRequest("Bir hata oluştu");
             }
-
+            _logger.LogInformation($"{user.UserName} kullanıcısı oluşturuldu");
             return NoContent();
         }
 
