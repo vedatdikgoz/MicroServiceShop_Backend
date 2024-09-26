@@ -14,17 +14,22 @@ using MicroServiceShop.Order.Application.Consumers;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
 
 builder.Services.AddApplicationService(builder.Configuration);
 
 
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
 builder.Services.AddControllers();
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommandHandler).Assembly));
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Order.WebAPI", Version = "v1" });
@@ -57,6 +62,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -110,6 +116,7 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddMassTransitHostedService();
+
 var app = builder.Build();
 
 //using (var scope = app.Services.CreateScope())
@@ -118,7 +125,7 @@ var app = builder.Build();
 //    var orderContext = serviceProvider.GetRequiredService<OrderContext>();
 //    orderContext.Database.Migrate();
 //}
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -126,8 +133,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

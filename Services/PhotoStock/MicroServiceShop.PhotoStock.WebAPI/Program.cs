@@ -1,21 +1,20 @@
-
 using CloudinaryDotNet;
 using MassTransit;
 using MicroServiceShop.PhotoStock.WebAPI.Consumers;
 using MicroServiceShop.PhotoStock.WebAPI.Dtos;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.PhotoStock.WebAPI", Version = "v1" });
@@ -48,6 +47,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -84,6 +84,7 @@ builder.Services.AddScoped<Cloudinary>(provider =>
 });
 
 builder.Services.AddScoped<UploadPhotoConsumer>();
+
 builder.Services.AddMassTransit(x =>
 {
     // Consumer'ý ekleyin
@@ -111,7 +112,7 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -121,8 +122,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

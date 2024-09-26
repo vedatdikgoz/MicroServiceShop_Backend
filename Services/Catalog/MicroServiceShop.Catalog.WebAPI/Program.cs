@@ -3,7 +3,6 @@ using MicroServiceShop.Catalog.WebAPI.Services;
 using MicroServiceShop.Catalog.WebAPI.Settings;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
@@ -11,13 +10,13 @@ using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Catalog.WebAPI", Version = "v1" });
@@ -50,14 +49,18 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
 });
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
+
 builder.Services.AddScoped<IProductImageService, ProductImageService>();
 
 builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
@@ -71,6 +74,7 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+
 builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
 builder.Services.AddCors(options =>
@@ -90,17 +94,22 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 app.UseSwagger();
+
 app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
+
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

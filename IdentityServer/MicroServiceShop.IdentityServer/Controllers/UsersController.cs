@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 namespace MicroServiceShop.IdentityServer.Controllers

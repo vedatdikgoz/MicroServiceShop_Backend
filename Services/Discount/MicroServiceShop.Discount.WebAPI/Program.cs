@@ -2,21 +2,23 @@ using MicroServiceShop.Core.Services;
 using MicroServiceShop.Discount.WebAPI.Services;
 using MicroServiceShop.Discount.WebAPI.Services.Interfaces;
 using MicroServiceShop.Discount.WebAPI.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
+
 builder.Services.AddScoped<DapperContext>();
+
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Discount.WebAPI", Version = "v1" });
@@ -48,8 +50,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -76,13 +81,14 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
 });
 
 var app = builder.Build();
+
 //using (var scope = app.Services.CreateScope())
 //{
 //    var serviceProvider = scope.ServiceProvider;
 //    var dapperContext = serviceProvider.GetRequiredService<DapperContext>();
 //    dapperContext.Database.Migrate();
 //}
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -90,8 +96,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

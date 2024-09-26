@@ -22,7 +22,7 @@ namespace MicroServiceShop.Discount.WebAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MicroServiceShop.Discount.Entities.Coupon", b =>
+            modelBuilder.Entity("MicroServiceShop.Discount.WebAPI.Entities.Coupon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -10,12 +10,13 @@ namespace MicroServiceShop.Logging
         {
             return (context, configuration) =>
             {
+                //elasticsearch config parameters
                 var elasticsearchUrl = context.Configuration["ElasticConfiguration:Uri"];
                 var appName = context.Configuration["ApplicationName"];
                 var envName = context.Configuration["EnvironmentName"];
                 var indexName = context.Configuration["IndexName"];
 
-
+                //serilog config
                 configuration
                     .Enrich.FromLogContext()
                     .Enrich.WithProperty("ApplicationName", appName) 

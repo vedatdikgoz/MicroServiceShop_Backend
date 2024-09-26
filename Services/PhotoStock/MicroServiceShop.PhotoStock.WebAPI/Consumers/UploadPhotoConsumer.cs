@@ -8,10 +8,12 @@ namespace MicroServiceShop.PhotoStock.WebAPI.Consumers
     public class UploadPhotoConsumer : IConsumer<UploadPhotoMessage>
     {
         private readonly Cloudinary _cloudinary;
+        private readonly ILogger<UploadPhotoConsumer> _logger;
 
-        public UploadPhotoConsumer(Cloudinary cloudinary)
+        public UploadPhotoConsumer(Cloudinary cloudinary,ILogger<UploadPhotoConsumer> logger)
         {
             _cloudinary = cloudinary;
+            _logger = logger;
         }
 
         public async Task Consume(ConsumeContext<UploadPhotoMessage> context)
@@ -30,7 +32,7 @@ namespace MicroServiceShop.PhotoStock.WebAPI.Consumers
 
             if (uploadResult.Error != null)
             {
-                // Hata yönetimi yapılabilir
+                _logger.LogInformation("Resimler yüklenirken bir hata oluştu");
             }
             else
             {

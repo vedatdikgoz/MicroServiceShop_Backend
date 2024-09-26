@@ -1,6 +1,5 @@
 ﻿using MicroServiceShop.Cargo.WebAPI.Dtos;
 using MicroServiceShop.Cargo.WebAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroServiceShop.Cargo.WebAPI.Controllers

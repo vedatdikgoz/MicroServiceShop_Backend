@@ -11,14 +11,19 @@ using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddScoped<DataContext>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 builder.Services.AddScoped<IUserMessageService, UserMessageService>();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Message.WebAPI", Version = "v1" });
@@ -51,6 +56,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -78,13 +84,14 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
 //using (var scope = app.Services.CreateScope())
 //{
 //    var serviceProvider = scope.ServiceProvider;
 //    var dataContext = serviceProvider.GetRequiredService<DataContext>();
 //    dataContext.Database.Migrate();
 //}
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -93,7 +100,9 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

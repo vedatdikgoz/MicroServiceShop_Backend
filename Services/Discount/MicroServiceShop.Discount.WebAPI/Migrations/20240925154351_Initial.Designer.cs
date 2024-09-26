@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MicroServiceShop.Discount.WebAPI.Migrations
 {
     [DbContext(typeof(DapperContext))]
-    [Migration("20240901120056_Initial")]
+    [Migration("20240925154351_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace MicroServiceShop.Discount.WebAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MicroServiceShop.Discount.Entities.Coupon", b =>
+            modelBuilder.Entity("MicroServiceShop.Discount.WebAPI.Entities.Coupon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
