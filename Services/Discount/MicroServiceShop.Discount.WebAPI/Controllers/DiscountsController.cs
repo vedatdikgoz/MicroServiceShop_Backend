@@ -56,8 +56,6 @@ namespace MicroServiceShop.Discount.WebAPI.Controllers
         [HttpGet("getbycode/{code}")]
         public async Task<IActionResult> GetByCode(string code)
         {
-            //var userId = _sharedIdentityService.GetUserId();
-            //var userId = "4ed0bfc6-e9b9-4170-8e7a-c6c91f5b3b69";
             var discount = await _discountService.GetByCodeAndUserId(code);
 
             return CreateActionResultInstance(discount);

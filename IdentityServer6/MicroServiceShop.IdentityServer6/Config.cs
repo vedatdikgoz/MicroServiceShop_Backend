@@ -1,15 +1,12 @@
-﻿
-
-
-using Duende.IdentityServer;
+﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
 namespace MicroServiceShop.IdentityServer6
 {
     public static class Config
     {
-        public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
-         {
+        public static IEnumerable<ApiResource> ApiResources =>
+         [
             new ApiResource("resource_catalog") {Scopes = {"catalog_fullpermission"}},
             new ApiResource("resource_photo") {Scopes = {"photo_fullpermission"}},
             new ApiResource("resource_basket") {Scopes = {"basket_fullpermission"}},
@@ -21,11 +18,10 @@ namespace MicroServiceShop.IdentityServer6
             new ApiResource("resource_message") {Scopes = {"message_fullpermission"}},
             new ApiResource("resource_cargo") {Scopes = {"cargo_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
-         };
+         ];
 
         public static IEnumerable<IdentityResource> IdentityResources =>
-                   new IdentityResource[]
-                   {
+                   [
                        new IdentityResources.Email(),
                        new IdentityResources.OpenId(),
                        new IdentityResources.Profile(),
@@ -36,11 +32,10 @@ namespace MicroServiceShop.IdentityServer6
                            Description = "Kullanıcı rolleri",
                            UserClaims = new []{"role"}
                        }
-                   };
+                   ];
 
         public static IEnumerable<ApiScope> ApiScopes =>
-            new ApiScope[]
-            {
+            [
                 new ApiScope("catalog_fullpermission","Catalog API için tam erişim"),
                 new ApiScope("photo_fullpermission","Photo API için tam erişim"),
                 new ApiScope("basket_fullpermission","Basket API için tam erişim"),
@@ -52,11 +47,10 @@ namespace MicroServiceShop.IdentityServer6
                 new ApiScope("message_fullpermission","Message API için tam erişim"),
                 new ApiScope("cargo_fullpermission","Cargo API için tam erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
-            };
+            ];
 
         public static IEnumerable<Client> Clients =>
-            new Client[]
-            {
+            [
                 new Client
                 {
                     ClientName = "Visitor",
@@ -117,7 +111,7 @@ namespace MicroServiceShop.IdentityServer6
                         IdentityServerConstants.StandardScopes.OpenId
                     }
                 }
-            };
+            ];
 
     }
 }

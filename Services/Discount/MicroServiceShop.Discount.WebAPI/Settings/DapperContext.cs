@@ -33,21 +33,6 @@ namespace MicroServiceShop.Discount.WebAPI.Settings
             {
                 entity.ToTable("coupons", DEFAULT_SCHEMA);
 
-                //entity.Property(e => e.Id)
-                //    .HasColumnName("id");
-
-                //entity.Property(e => e.Code)
-                //    .HasColumnName("code");
-
-                //entity.Property(e => e.Rate)
-                //    .HasColumnName("rate");
-
-                //entity.Property(e => e.IsActive)
-                //    .HasColumnName("isactive");
-
-                //entity.Property(e => e.ValidDate)
-                //    .HasColumnName("validdate");
-
             });
         }
     }

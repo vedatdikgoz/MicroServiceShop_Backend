@@ -1,10 +1,9 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using MassTransit;
-using MicroServiceShop.Core.Dtos;
 using MicroServiceShop.PhotoStock.WebAPI.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
+
 
 namespace MicroServiceShop.PhotoStock.WebAPI.Controllers
 {

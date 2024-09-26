@@ -1,7 +1,6 @@
 using MicroServiceShop.Cargo.WebAPI.DataAccess;
 using MicroServiceShop.Cargo.WebAPI.Services;
 using MicroServiceShop.Cargo.WebAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
@@ -9,11 +8,13 @@ using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Cargo.WebAPI", Version = "v1" });
@@ -45,10 +46,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 builder.Services.AddScoped<CargoContext>();
+
 builder.Services.AddScoped<ICargoCompanyService, CargoCompanyService>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -82,7 +86,7 @@ var app = builder.Build();
 //    var cargoContext = serviceProvider.GetRequiredService<CargoContext>();
 //    cargoContext.Database.Migrate();
 //}
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -92,7 +96,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

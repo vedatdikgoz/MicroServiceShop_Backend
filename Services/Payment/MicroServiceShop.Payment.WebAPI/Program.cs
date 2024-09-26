@@ -5,11 +5,10 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroServiceShop.Payment.WebAPI", Version = "v1" });
@@ -42,6 +41,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
@@ -79,10 +79,12 @@ builder.Services.AddMassTransit(x =>
         });
     });
 });
+
 builder.Services.AddMassTransitHostedService();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -90,7 +92,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

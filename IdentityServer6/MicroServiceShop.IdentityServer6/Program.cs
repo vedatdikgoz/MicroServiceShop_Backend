@@ -6,12 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
-// Add services to the container.
+
 builder.Services.AddLocalApiAuthentication();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
@@ -55,10 +58,13 @@ builder.Services.AddIdentityServer(options =>
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");
-app.UseIdentityServer();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
 
+app.UseIdentityServer();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();

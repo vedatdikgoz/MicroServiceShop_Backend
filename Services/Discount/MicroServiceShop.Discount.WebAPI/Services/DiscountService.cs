@@ -18,7 +18,7 @@ namespace MicroServiceShop.Discount.WebAPI.Services
 
         public async Task<Response<NoContent>> CreateDiscountCouponAsync(CreateCouponDto createCouponDto)
         {
-            string query = "INSERT INTO discount.coupons (code, rate, isactive, validdate) VALUES (@code, @rate, @isactive, @validdate)";
+            string query = "INSERT INTO discount.coupons (\"Code\", \"Rate\", \"IsActive\", \"ValidDate\") VALUES (@code, @rate, @isactive, @validdate)";
             var parameters = new DynamicParameters();
             parameters.Add("code", createCouponDto.Code);
             parameters.Add("rate", createCouponDto.Rate);
@@ -31,7 +31,7 @@ namespace MicroServiceShop.Discount.WebAPI.Services
 
         public async Task<Response<NoContent>> DeleteDiscountCouponAsync(int id)
         {
-            string query = "DELETE FROM discount.coupons WHERE id=@id";
+            string query = "DELETE FROM discount.coupons WHERE \"Id\"=@id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id);
             using var connection = _dapperContext.CreateConnection();
@@ -50,7 +50,7 @@ namespace MicroServiceShop.Discount.WebAPI.Services
 
         public async Task<Response<NoContent>> UpdateDiscountCouponAsync(UpdateCouponDto updateCouponDto)
         {
-            string query = "UPDATE discount.coupons SET code=@code, rate=@rate, isactive=@isactive, validdate=@validdate WHERE id=@id";
+            string query = "UPDATE discount.coupons SET \"Code\"=@code, \"Rate\"=@rate, \"IsActive\"=@isactive, \"ValidDate\"=@validdate WHERE \"Id\"=@id";
             var parameters = new DynamicParameters();
             parameters.Add("code", updateCouponDto.Code);
             parameters.Add("rate", updateCouponDto.Rate);
@@ -64,7 +64,7 @@ namespace MicroServiceShop.Discount.WebAPI.Services
 
         public async Task<Response<CouponDto>> GetDiscountCouponByIdAsync(int id)
         {
-            string query = "SELECT * FROM discount.coupons WHERE id=@id";
+            string query = "SELECT * FROM discount.coupons WHERE \"Id\"=@id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id);
             using var connection = _dapperContext.CreateConnection();
@@ -79,7 +79,7 @@ namespace MicroServiceShop.Discount.WebAPI.Services
 
         public async Task<Response<CouponDto>> GetByCodeAndUserId(string code)
         {
-            string query = "SELECT * FROM discount.coupons WHERE code=@code";
+            string query = "SELECT * FROM discount.coupons WHERE \"Code\"=@code";
             var parameters = new DynamicParameters();
             parameters.Add("code", code);
             using var connection = _dapperContext.CreateConnection();

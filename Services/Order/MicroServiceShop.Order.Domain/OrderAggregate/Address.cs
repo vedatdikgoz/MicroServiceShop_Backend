@@ -20,6 +20,8 @@ namespace MicroServiceShop.Order.Domain.OrderAggregate
             ZipCode = zipCode;
         }
 
+        //yield return ifadesiyle her bir özellik sırasıyla döndürülür.
+        //Bu metod, değerin karşılaştırılması sırasında hangi özelliklerin kontrol edilmesi gerektiğini belirtir.
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Country;
