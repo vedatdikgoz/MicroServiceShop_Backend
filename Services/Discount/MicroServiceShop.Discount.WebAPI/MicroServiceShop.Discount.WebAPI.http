@@ -1,6 +1,63 @@
 @MicroServiceShop.Discount_HostAddress = http://localhost:5014
+@Gateway_Path = http://localhost:5000/services/discount
+@code = your_code
+@discount_id = your_discount_id
+@access_token = your_access_token
+
+
+
+GET {{Gateway_Path}}/Discounts
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall discount coupons gateway address
+
 
 GET {{MicroServiceShop.Discount_HostAddress}}/api/Discounts
 Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall discount coupons host address
 
-###
+GET {{MicroServiceShop.Discount_HostAddress}}/api/Discounts/getbycode/{{code}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+###  get by code
+
+GET {{MicroServiceShop.Discount_HostAddress}}/api/Discounts/{{discount_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getbyid discount coupon
+
+
+POST {{MicroServiceShop.Discount_HostAddress}}/api/Discounts
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Code": "bahar",
+    "Rate": 35,
+    "IsActive":true,
+    "ValidDate":"2024-11-19T10:14:45.424Z"
+}
+### create discount coupon
+
+
+PUT {{MicroServiceShop.Discount_HostAddress}}/api/Discounts
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Id": 2,
+    "Code": "bahar",
+    "Rate": 30,
+    "IsActive":true,
+    "ValidDate":"2024-11-19T10:14:45.424Z"
+}
+### update discount coupon
+
+
+DELETE {{MicroServiceShop.Discount_HostAddress}}/api/Discounts?id={{discount_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### delete discount coupon
