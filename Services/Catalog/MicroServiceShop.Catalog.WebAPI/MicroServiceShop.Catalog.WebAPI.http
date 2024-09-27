@@ -1,12 +1,114 @@
 @MicroServiceShop.Catalog_HostAddress = http://localhost:5011
+@Gateway_Path = http://localhost:5000/services/catalog
+@cetegory_id = 66e5f65ea614bcf81a89b112
+@product_id = 66f6ea913060eedd96c917f1
+@access_token = your_access_token
+
+
+
+GET {{Gateway_Path}}/Categories
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall category gateway address
 
 GET {{MicroServiceShop.Catalog_HostAddress}}/api/Categories
 Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall category host address
 
-###
+
+
+GET {{MicroServiceShop.Catalog_HostAddress}}/api/Categories/{{cetegory_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getbyid category
+
 
 POST {{MicroServiceShop.Catalog_HostAddress}}/api/Categories
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{access_token}}
 
-###
+{
+    "Name": "Televizyon",
+    "ImageUrl": "https://example.com/image.jpg"
+}
+### create category
+
+
+PUT {{MicroServiceShop.Catalog_HostAddress}}/api/Categories
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Id": "66ef0fc6262c34ead34f0f4d",
+    "Name": "Mobilya",
+    "ImageUrl": "https://example.com/image.jpg"
+}
+### update category
+
+
+DELETE {{MicroServiceShop.Catalog_HostAddress}}/api/Categories/{{cetegory_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### delete category
+
+
+
+
+
+GET {{MicroServiceShop.Catalog_HostAddress}}/api/Products
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall product
+
+
+GET {{MicroServiceShop.Catalog_HostAddress}}/api/Products/{{product_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getbyid product
+
+
+GET {{MicroServiceShop.Catalog_HostAddress}}/api/Products/productwithcategory?categoryId={{cetegory_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### productwithcategory product
+
+
+POST {{MicroServiceShop.Catalog_HostAddress}}/api/Products
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Name": "Casper S500",
+    "Price": 30000,
+    "ImageUrl": null,
+    "Description": null,
+    "CategoryId": "66e5e9569105795363e5e516"
+}
+### create product
+
+
+PUT {{MicroServiceShop.Catalog_HostAddress}}/api/Products
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Id": "66f6ea913060eedd96c917f1",
+    "Name": "Lenovo Yoga 500",
+    "Price": 30000,
+    "ImageUrl": null,
+    "Description": null,
+    "CategoryId": "66e5e9569105795363e5e516"
+}
+### update product
+
+
+DELETE {{MicroServiceShop.Catalog_HostAddress}}/api/Products/{{product_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### delete product
+

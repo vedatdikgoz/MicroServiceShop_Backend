@@ -1,6 +1,63 @@
-@MicroServiceShop.Comment.WebAPI_HostAddress = http://localhost:5156
+@MicroServiceShop.Comment.WebAPI_HostAddress = http://localhost:5018
+@Gateway_Path = http://localhost:5000/services/comment
+@comment_id = your_comment_id
+@access_token = your_access_token
 
-GET {{MicroServiceShop.Comment.WebAPI_HostAddress}}/weatherforecast/
+
+GET {{Gateway_Path}}/Comments
 Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall comment gateway address
 
-###
+GET {{MicroServiceShop.Comment.WebAPI_HostAddress}}/api/Comments
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getall comment host address
+
+
+
+GET {{MicroServiceShop.Comment.WebAPI_HostAddress}}/api/Comments/{{comment_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### getbyid comment
+
+
+POST {{MicroServiceShop.Comment.WebAPI_HostAddress}}/api/Comments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "NameSurname": "Vedat Dikgöz",
+    "Email": "vedat@gmail.com",
+    "ImageUrl":null,
+    "CommentDetail":"good product",
+    "Rating":4,
+    "CreatedDate":"2024-10-27T10:14:45.424Z",
+    "ProductId":"66e5e9669105795363e5e517"
+}
+### create comment
+
+
+PUT {{MicroServiceShop.Comment.WebAPI_HostAddress}}/api/Comments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "Id":"66f716f12d4ed67ca97ef394",
+    "NameSurname": "Vedat Dikgöz",
+    "Email": "vedat@gmail.com",
+    "ImageUrl":null,
+    "CommentDetail":"very good product",
+    "Rating":5,
+    "CreatedDate":"2024-10-27T10:14:45.424Z",
+    "ProductId":"66e5e9669105795363e5e517"
+}
+### update comment
+
+
+DELETE {{MicroServiceShop.Comment.WebAPI_HostAddress}}/api/Comments/{{comment_id}}
+Accept: application/json
+Authorization: Bearer {{access_token}}
+### delete comment
