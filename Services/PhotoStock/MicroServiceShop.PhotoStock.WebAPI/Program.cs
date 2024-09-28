@@ -5,11 +5,12 @@ using MicroServiceShop.PhotoStock.WebAPI.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
+using MicroServiceShop.Logging;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddControllers();
 

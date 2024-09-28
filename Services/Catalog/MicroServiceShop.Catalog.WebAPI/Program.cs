@@ -1,4 +1,5 @@
 using MicroServiceShop.Catalog.WebAPI.Services.Interfaces;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Catalog.WebAPI.Services;
 using MicroServiceShop.Catalog.WebAPI.Settings;
 using Microsoft.Extensions.Options;
@@ -11,7 +12,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddControllers();
 

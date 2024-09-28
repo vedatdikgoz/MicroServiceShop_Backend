@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj" />
+    <ProjectReference Include="..\..\Core\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj" />
   </ItemGroup>
 
 </Project>

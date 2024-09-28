@@ -1,4 +1,5 @@
 using MicroServiceShop.Comment.WebAPI.Services;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Comment.WebAPI.Services.Interfaces;
 using MicroServiceShop.Comment.WebAPI.Settings;
 using MicroServiceShop.Comment.WebAPI.SignalRHub;
@@ -11,7 +12,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddSignalR();
 

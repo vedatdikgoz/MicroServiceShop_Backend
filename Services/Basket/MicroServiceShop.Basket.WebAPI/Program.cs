@@ -1,4 +1,5 @@
 using MicroServiceShop.Basket.WebAPI.Services;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Basket.WebAPI.Settings;
 using MicroServiceShop.Core.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
