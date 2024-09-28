@@ -19,13 +19,13 @@ namespace MicroServiceShop.Logging
                 //serilog config
                 configuration
                     .Enrich.FromLogContext()
-                    .Enrich.WithProperty("ApplicationName", appName) 
+                    .Enrich.WithProperty("ApplicationName", appName)
                     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUrl))
                     {
                         AutoRegisterTemplate = true,
                         IndexFormat = $"{indexName}-{envName}-logs-{DateTime.UtcNow:yyyy.MM.dd}"
                     })
-                    .ReadFrom.Configuration(context.Configuration); 
+                    .ReadFrom.Configuration(context.Configuration);
             };
         }
     }
