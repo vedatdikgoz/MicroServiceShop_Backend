@@ -1,4 +1,5 @@
 using MicroServiceShop.Cargo.WebAPI.DataAccess;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Cargo.WebAPI.Services;
 using MicroServiceShop.Cargo.WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddControllers();
 

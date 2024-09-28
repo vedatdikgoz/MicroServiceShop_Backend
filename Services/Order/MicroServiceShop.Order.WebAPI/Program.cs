@@ -1,4 +1,5 @@
 using MicroServiceShop.Order.Infrastructure;
+using MicroServiceShop.Logging;
 using Microsoft.EntityFrameworkCore;
 using MicroServiceShop.Order.Application.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -15,7 +16,7 @@ using MicroServiceShop.Order.Application.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddApplicationService(builder.Configuration);
 

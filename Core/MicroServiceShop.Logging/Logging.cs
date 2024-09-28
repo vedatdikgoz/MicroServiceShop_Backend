@@ -1,38 +1,32 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Exceptions;
-using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
 
-
-namespace Logging.Shared
+namespace MicroServiceShop.Logging
 {
     public static class Logging
     {
-        public static Action<HostBuilderContext, LoggerConfiguration> ConfigureLogging => (hostBuilderContext, loggerConfiguration) =>
+        public static Action<HostBuilderContext, LoggerConfiguration> ConfigureSerilog()
         {
-            var environment = hostBuilderContext.HostingEnvironment;
-
-            loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration)
-                               .Enrich.FromLogContext()
-                               .Enrich.WithExceptionDetails()
-                               .Enrich.WithProperty("Env", environment.EnvironmentName)
-                               .Enrich.WithProperty("AppName", environment.ApplicationName);
-
-            var elasticsearchBaseUrl = hostBuilderContext.Configuration.GetSection("Elasticsearch")["BaseUrl"];
-            var userName = hostBuilderContext.Configuration.GetSection("Elasticsearch")["UserName"];
-            var password = hostBuilderContext.Configuration.GetSection("Elasticsearch")["Password"];
-            var indexName = hostBuilderContext.Configuration.GetSection("Elasticsearch")["IndexName"];
-
-
-            loggerConfiguration.WriteTo.Elasticsearch(new(new Uri(elasticsearchBaseUrl!))
+            return (context, configuration) =>
             {
-                AutoRegisterTemplate = true,
-                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
-                IndexFormat = $"{indexName}-{environment.EnvironmentName}-logs-{DateTime.UtcNow:yyyy.MM.dd}",
-                CustomFormatter = new ElasticsearchJsonFormatter()
-            });
+                //elasticsearch config parameters
+                var elasticsearchUrl = context.Configuration["ElasticConfiguration:Uri"];
+                var appName = context.Configuration["ApplicationName"];
+                var envName = context.Configuration["EnvironmentName"];
+                var indexName = context.Configuration["IndexName"];
 
-        };
+                //serilog config
+                configuration
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("ApplicationName", appName) 
+                    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearchUrl))
+                    {
+                        AutoRegisterTemplate = true,
+                        IndexFormat = $"{indexName}-{envName}-logs-{DateTime.UtcNow:yyyy.MM.dd}"
+                    })
+                    .ReadFrom.Configuration(context.Configuration); 
+            };
+        }
     }
 }

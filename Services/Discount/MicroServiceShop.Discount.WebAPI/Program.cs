@@ -1,4 +1,5 @@
 using MicroServiceShop.Core.Services;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Discount.WebAPI.Services;
 using MicroServiceShop.Discount.WebAPI.Services.Interfaces;
 using MicroServiceShop.Discount.WebAPI.Settings;
@@ -9,7 +10,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddScoped<DapperContext>();
 

@@ -1,8 +1,7 @@
-using MicroServiceShop.Core.Services;
+using MicroServiceShop.Logging;
 using MicroServiceShop.Message.WebAPI.DataAccess.Context;
 using MicroServiceShop.Message.WebAPI.Services;
 using MicroServiceShop.Message.WebAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
@@ -12,7 +11,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(MicroServiceShop.Logging.Logging.ConfigureSerilog());
+builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
 builder.Services.AddControllers();
 

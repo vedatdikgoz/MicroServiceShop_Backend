@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\MicroServiceShop.Core\MicroServiceShop.Core.csproj" />
-    <ProjectReference Include="..\..\..\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Core\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj" />
     <ProjectReference Include="..\MicroServiceShop.Order.Application\MicroServiceShop.Order.Application.csproj" />
     <ProjectReference Include="..\MicroServiceShop.Order.Domain\MicroServiceShop.Order.Domain.csproj" />
     <ProjectReference Include="..\MicroServiceShop.Order.Infrastructure\MicroServiceShop.Order.Infrastructure.csproj" />
