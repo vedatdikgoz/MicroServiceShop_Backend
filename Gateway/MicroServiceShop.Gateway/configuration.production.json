@@ -159,7 +159,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "payment.api",
           "Port": 80
         }
       ],
@@ -169,6 +169,25 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
         "AllowedScopes": [ "payment_fullpermission" ]
+      }
+    },
+
+    //Invoice
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "invoice.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/services/invoice/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "invoice_fullpermission" ]
       }
     }
 

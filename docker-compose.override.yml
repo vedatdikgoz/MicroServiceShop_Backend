@@ -1,4 +1,11 @@
 services:
+  invoicedb:
+    container_name: invoicedb
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - invoicedb_volume:/data/db
   catalogdb:
     container_name: catalogdb
     restart: always
