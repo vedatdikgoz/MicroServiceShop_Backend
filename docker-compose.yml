@@ -1,4 +1,6 @@
 services:
+  invoicedb:
+    image: mongo
   catalogdb:
     image: mongo
   basketdb:
@@ -99,6 +101,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
 
 volumes:
+  invoicedb_volume:
   catalogdb_volume:
   discountdb_volume:
   messagedb_volume:

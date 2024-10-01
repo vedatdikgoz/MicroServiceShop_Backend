@@ -63,7 +63,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{2CFC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Payment.WebAPI", "Services\Payment\MicroServiceShop.Payment.WebAPI\MicroServiceShop.Payment.WebAPI.csproj", "{456A5240-7029-4F44-AEA1-FF730642C7DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceShop.Logging", "Core\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj", "{827448BE-5F55-4E72-BBFF-37A014A2C931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroServiceShop.Logging", "Core\MicroServiceShop.Logging\MicroServiceShop.Logging.csproj", "{827448BE-5F55-4E72-BBFF-37A014A2C931}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Invoice", "Invoice", "{63115D48-EDA0-4EF7-95E7-D1DDE616FAFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroServiceShop.Invoice.WebAPI", "Services\Invoice\MicroServiceShop.Invoice.WebAPI\MicroServiceShop.Invoice.WebAPI.csproj", "{098813D5-4538-426F-B220-F51AA929B3C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +143,10 @@ Global
 		{827448BE-5F55-4E72-BBFF-37A014A2C931}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827448BE-5F55-4E72-BBFF-37A014A2C931}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827448BE-5F55-4E72-BBFF-37A014A2C931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098813D5-4538-426F-B220-F51AA929B3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098813D5-4538-426F-B220-F51AA929B3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098813D5-4538-426F-B220-F51AA929B3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098813D5-4538-426F-B220-F51AA929B3C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +178,8 @@ Global
 		{2CFCA2E3-410B-4858-B8E0-7EA23E582652} = {6067340F-1398-48C6-9DAA-73FDC7A078BA}
 		{456A5240-7029-4F44-AEA1-FF730642C7DD} = {2CFCA2E3-410B-4858-B8E0-7EA23E582652}
 		{827448BE-5F55-4E72-BBFF-37A014A2C931} = {D1271DFB-9215-4961-B6F4-A492CC13FD4E}
+		{63115D48-EDA0-4EF7-95E7-D1DDE616FAFF} = {6067340F-1398-48C6-9DAA-73FDC7A078BA}
+		{098813D5-4538-426F-B220-F51AA929B3C6} = {63115D48-EDA0-4EF7-95E7-D1DDE616FAFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {796A04CE-2372-4345-BBCA-067BD1157309}
