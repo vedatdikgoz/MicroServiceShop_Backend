@@ -4,12 +4,16 @@ namespace MicroServiceShop.Invoice.WebAPI.Dtos
 {
     public class InvoiceDto
     {
-        public string Id { get; set; } = null!;
+        public string Id { get; set; }
         public Guid InvoiceNumber { get; set; }
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-        public string BuyerId { get; set; }
-        public Address Address { get; set; }
-        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-        public decimal TotalPrice => OrderItems.Sum(item => item.Quantity * item.Price);
+        public DateTime CreateDate { get; set; }
+        public string? BuyerId { get; set; }
+        public string? Country { get; set; }
+        public string? Province { get; set; }
+        public string? District { get; set; }
+        public string? AddressLine { get; set; }
+        public string? ZipCode { get; set; }
+        public string? InvoiceId { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
