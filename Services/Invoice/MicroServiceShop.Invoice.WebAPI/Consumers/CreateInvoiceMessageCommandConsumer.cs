@@ -21,41 +21,33 @@ namespace MicroServiceShop.Invoice.WebAPI.Consumers
         public async Task Consume(ConsumeContext<CreateInvoiceMessageCommand> context)
         {
 
-           
-            //var addressDto = new AddressDto
-            //{
-            //    Country = context.Message.Address.Country,
-            //    Province = context.Message.Address.Province,
-            //    District = context.Message.Address.District,
-            //    AddressLine = context.Message.Address.AddressLine,
-            //    ZipCode = context.Message.Address.ZipCode
-            //};
-
-            
-            //var orderItemsDto = context.Message.OrderItems.Select(item => new OrderItemDto
-            //{
-            //    ProductId = item.ProductId,
-            //    ProductName = item.ProductName,
-            //    PictureUrl = item.PictureUrl,
-            //    Price = item.Price,
-            //    Quantity = item.Quantity
-            //}).ToList();
-
-            //var address = _mapper.Map<Address>(addressDto);
-            //var orderItems = _mapper.Map<List<Entities.OrderItem>>(orderItemsDto);
-            
+          
             var createInvoiceDto = new CreateInvoiceDto
             {
+               
                 BuyerId = context.Message.BuyerId,
-                Address = null, 
-                OrderItems = null, 
+                Country = context.Message.Country,
+                Province = context.Message.Province,
+                District = context.Message.District,
+                AddressLine = context.Message.AddressLine,
+                ZipCode = context.Message.ZipCode,
                 InvoiceNumber = context.Message.InvoiceNumber,
                 CreateDate = context.Message.CreateDate,
-                TotalPrice = 1000
-
+                TotalPrice = context.Message.OrderItems.Sum(i => i.Price * i.Quantity),
+                OrderItems = new List<CreateInvoiceOrderItemDto>()
             };
-
-           // TODO: modified invoiceDto
+            foreach (var item in context.Message.OrderItems)
+            {
+                createInvoiceDto.OrderItems.Add(new CreateInvoiceOrderItemDto
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    PictureUrl = item.PictureUrl,
+                    Price = item.Price,
+                    Quantity = 1
+                });
+            }
+        
             await _invoiceService.CreateAsync(createInvoiceDto);
 
         }

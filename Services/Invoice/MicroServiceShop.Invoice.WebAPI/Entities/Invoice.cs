@@ -2,31 +2,34 @@
 {
     public class Invoice
     {
-        public string Id { get; set; } = null!;
+        public string Id { get; set; }
         public Guid InvoiceNumber { get; set; }
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreateDate { get; set; }
         public string BuyerId { get; set; }
-        public Address Address { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
-        public decimal TotalPrice => OrderItems.Sum(item => item.Quantity * item.Price);
-    }
-
-    
-    public class Address
-    {
         public string? Country { get; private set; }
         public string? Province { get; private set; }
         public string? District { get; private set; }
         public string? AddressLine { get; private set; }
         public string? ZipCode { get; private set; }
-    }
+        public List<InvoiceOrderItem> OrderItems { get; private set; } = new();
 
-    public class OrderItem
-    {
-        public string ProductId { get; private set; }
-        public string ProductName { get; private set; }
-        public string PictureUrl { get; private set; }
-        public decimal Price { get; private set; }
-        public int Quantity { get; private set; }
-    }   
+        // TotalPrice property calculated based on OrderItems
+        public decimal TotalPrice => OrderItems?.Sum(item => item.Quantity * item.Price) ?? 0;
+
+        // Method to set address
+        public void SetAddress(string country, string province, string district, string addressLine, string zipCode)
+        {
+            Country = country;
+            Province = province;
+            District = district;
+            AddressLine = addressLine;
+            ZipCode = zipCode;
+        }
+
+        // Method to add order items
+        public void AddOrderItem(InvoiceOrderItem orderItem)
+        {
+            OrderItems.Add(orderItem);
+        }
+    }
 }

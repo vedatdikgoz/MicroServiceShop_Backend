@@ -33,26 +33,28 @@ namespace MicroServiceShop.Order.Application.Consumers
 
             var createInvoiceMessageCommand = new CreateInvoiceMessageCommand
             {
+                
                 BuyerId = order.BuyerId,
-                Address = new AddressDto
-                {
-                    Country = newAddress.Country,
-                    Province = newAddress.Province,
-                    District = newAddress.District,
-                    AddressLine = newAddress.AddressLine,
-                    ZipCode = newAddress.ZipCode
-                },
-                OrderItems = order.OrderItems.Select(x => new OrderItemDto
-                {
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
-                    PictureUrl = x.PictureUrl,
-                    Price = x.Price,
-                    Quantity = 1 
-                }).ToList(),
-                InvoiceNumber = Guid.NewGuid(),
-                CreateDate = DateTime.UtcNow
+                Country = newAddress.Country,
+                Province = newAddress.Province,
+                District = newAddress.District,
+                AddressLine = newAddress.AddressLine,
+                ZipCode = newAddress.ZipCode,           
+                InvoiceNumber = Guid.NewGuid(), 
+                CreateDate = DateTime.UtcNow,
+                OrderItems = new List<InvoiceOrderItemDto>()
             };
+            foreach (var item in order.OrderItems)
+            {
+                createInvoiceMessageCommand.OrderItems.Add(new InvoiceOrderItemDto
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    PictureUrl = item.PictureUrl,
+                    Price = item.Price,
+                    Quantity = 1 
+                });
+            }
 
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-invoice-service"));
             await sendEndpoint.Send(createInvoiceMessageCommand);
