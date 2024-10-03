@@ -12,8 +12,11 @@ The microservices architecture is organized into several key components:
 - **API Gateway**
   - Manages and routes external requests to the appropriate microservices using **Ocelot**.
 
-- **Identity Server**
+- **Identity Server4**
   - Identity management and authentication system built with **.NET Core 3.1** and **SQL Server**, using **JWT tokens** for secure communication.
+ 
+- **Identity Server6**
+  - Identity management and authentication system built with **.NET 8** and **SQL Server**, using **JWT tokens** for secure communication.
 
 - **Microservices**
   - **Basket Service**: Manages user shopping baskets, backed by **Redis** for caching and session management.
@@ -23,6 +26,7 @@ The microservices architecture is organized into several key components:
   - **Message Service**: Handles messaging and notifications, stored in **PostgreSQL**.
   - **Cargo Service**: Manages delivery and shipment information.
   - **Order Service**: Processes and manages orders, using **PostgreSQL**. **MediatR** is used for handling command-query responsibilities.
+  - **Invoice Service**: Manages invoice creation, storage, and management, using **MongoDB**
   - **Photo Service**: Manages photo uploads and storage via **Cloudinary**.
 
 ## Key Technologies and Tools
