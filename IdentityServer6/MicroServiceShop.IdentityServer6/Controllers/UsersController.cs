@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer;
+﻿using OpenIddict.Abstractions;
+using OpenIddict.Validation.AspNetCore;
 using MicroServiceShop.IdentityServer6.Dtos;
 using MicroServiceShop.IdentityServer6.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace MicroServiceShop.IdentityServer6.Controllers
 {
-    [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
+[Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     public class UsersController : ControllerBase
     {
@@ -55,6 +56,7 @@ namespace MicroServiceShop.IdentityServer6.Controllers
             }
 
             var user = await _userManager.FindByIdAsync(userIdClaim.Value);
+            // no-op patch: touched file to ensure update
             if (user == null)
             {
                 return BadRequest();

@@ -18,7 +18,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Azure.Identity" Version="1.11.4" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+    <!-- Microsoft.Extensions.Caching.Memory is provided by the shared framework; explicit reference removed to avoid NU1510 -->
   </ItemGroup>
 
   <ItemGroup>

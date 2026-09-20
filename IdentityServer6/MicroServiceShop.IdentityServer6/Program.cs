@@ -1,6 +1,7 @@
 using MicroServiceShop.IdentityServer6.Models;
 using MicroServiceShop.IdentityServer6;
 using MicroServiceShop.IdentityServer6.Data;
+using OpenIddict.Validation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MicroServiceShop.Logging;
@@ -10,7 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog(Logging.ConfigureSerilog());
 
-builder.Services.AddLocalApiAuthentication();
+// Use OpenIddict validation scheme as default authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+});
 
 builder.Services.AddControllers();
 
@@ -38,30 +43,44 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddIdentityServer(options =>
-{
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
+// Configure OpenIddict
+builder.Services.AddOpenIddict()
+    .AddCore(options =>
+    {
+        options.UseEntityFrameworkCore()
+               .UseDbContext<ApplicationDbContext>();
+    })
+    .AddServer(options =>
+    {
+        options.SetTokenEndpointUris("/connect/token")
+               .SetAuthorizationEndpointUris("/connect/authorize")
+               .SetUserinfoEndpointUris("/connect/userinfo");
 
+        options.AllowPasswordFlow()
+               .AllowClientCredentialsFlow()
+               .AllowRefreshTokenFlow();
 
-    options.EmitStaticAudienceClaim = true;
-})
-    .AddInMemoryIdentityResources(Config.IdentityResources)
-    .AddInMemoryApiResources(Config.ApiResources)
-    .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddInMemoryClients(Config.Clients)
-    .AddAspNetIdentity<ApplicationUser>()
-    .AddDeveloperSigningCredential();
+        options.AddDevelopmentEncryptionCertificate()
+               .AddDevelopmentSigningCertificate();
+
+        options.UseAspNetCore()
+               .EnableTokenEndpointPassthrough()
+               .EnableAuthorizationEndpointPassthrough()
+               .DisableTransportSecurityRequirement();
+    })
+    .AddValidation(options =>
+    {
+        options.UseLocalServer();
+        options.UseAspNetCore();
+    });
+
 
 
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");
 
-app.UseIdentityServer();
-
+// OpenIddict does not use UseIdentityServer(); authentication/authorization middleware is sufficient
 app.UseAuthentication();
 
 app.UseAuthorization();
