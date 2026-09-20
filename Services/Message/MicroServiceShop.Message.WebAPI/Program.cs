@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<DataContext>();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUserMessageService, UserMessageService>();
 

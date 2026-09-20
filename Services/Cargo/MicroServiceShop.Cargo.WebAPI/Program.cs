@@ -50,7 +50,7 @@ builder.Services.AddScoped<CargoContext>();
 
 builder.Services.AddScoped<ICargoCompanyService, CargoCompanyService>();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using MicroServiceShop.Core.Middlewares;
+using MicroServiceShop.Core.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,8 @@ builder.Host.UseSerilog(Logging.ConfigureSerilog());
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCustomExceptionHandling();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -72,7 +76,7 @@ builder.Services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme",
 });
 
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 
@@ -104,6 +108,8 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 
 app.UseSwaggerUI();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -12,10 +12,12 @@ namespace MicroServiceShop.Order.Application.Handlers.OrderHandlers
     internal class GetOrdersByUserIdQueryHandler : IRequestHandler<GetOrdersByUserIdQuery, Response<List<OrderDto>>>
     {
         private readonly OrderContext _context;
+        private readonly AutoMapper.IMapper _mapper;
 
-        public GetOrdersByUserIdQueryHandler(OrderContext context)
+        public GetOrdersByUserIdQueryHandler(OrderContext context, AutoMapper.IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<Response<List<OrderDto>>> Handle(GetOrdersByUserIdQuery request, CancellationToken cancellationToken)
@@ -27,7 +29,7 @@ namespace MicroServiceShop.Order.Application.Handlers.OrderHandlers
                 return Response<List<OrderDto>>.Success(new List<OrderDto>(), 200);
             }
 
-            var ordersDto = ObjectMapper.Mapper.Map<List<OrderDto>>(orders);
+            var ordersDto = _mapper.Map<List<OrderDto>>(orders);
 
             return Response<List<OrderDto>>.Success(ordersDto, 200);
         }

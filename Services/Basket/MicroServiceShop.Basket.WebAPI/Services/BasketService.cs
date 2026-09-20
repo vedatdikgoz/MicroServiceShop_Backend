@@ -28,7 +28,7 @@ namespace MicroServiceShop.Basket.WebAPI.Services
                 return Response<BasketDto>.Fail("Basket not found", 404);
             }
 
-            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket), 200);
+            return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket.ToString()), 200);
         }
 
         public async Task<Response<bool>> SaveOrUpdate(BasketDto basketDto)
