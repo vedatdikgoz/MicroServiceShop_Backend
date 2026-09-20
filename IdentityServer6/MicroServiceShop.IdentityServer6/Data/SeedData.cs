@@ -13,6 +13,7 @@ namespace MicroServiceShop.IdentityServer6.Data
     {
         public static async Task InitializeAsync(IServiceProvider provider)
         {
+            // touched to force rebuild
             using var scope = provider.CreateScope();
             var sp = scope.ServiceProvider;
 
