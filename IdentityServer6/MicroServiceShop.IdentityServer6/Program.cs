@@ -53,8 +53,7 @@ builder.Services.AddOpenIddict()
     .AddServer(options =>
     {
         options.SetTokenEndpointUris("/connect/token")
-               .SetAuthorizationEndpointUris("/connect/authorize")
-               .SetUserinfoEndpointUris("/connect/userinfo");
+               .SetAuthorizationEndpointUris("/connect/authorize");
 
         options.AllowPasswordFlow()
                .AllowClientCredentialsFlow()
