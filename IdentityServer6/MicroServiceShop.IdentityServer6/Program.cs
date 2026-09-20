@@ -87,4 +87,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Seed OpenIddict scopes and clients
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await MicroServiceShop.IdentityServer6.Data.SeedData.InitializeAsync(services);
+}
+
 app.Run();
